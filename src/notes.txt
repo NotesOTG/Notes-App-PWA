@@ -1,0 +1,9 @@
+-----NOTES FUNCTIONALITY-----
+Checklist option - dynamic : Apple does it as an icon at the bottom left
+(every \n auto converts to checklist, if there's double \n, doesn't convert it)
+
+Name of the NOTES
+Body of the NOTES
+date of the NOTES(saving adds new date)
+categories to classify the NOTES
+search so we can search the NOTES

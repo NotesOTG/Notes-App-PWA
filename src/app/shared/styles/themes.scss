@@ -1,0 +1,10 @@
+@import "light-theme.scss";
+@import "dark-theme.scss";
+
+.light-theme {
+  // @include angular-material-color($candy-app-theme);
+}
+
+.dark-theme {
+  @include angular-material-color($dark-theme);
+}
