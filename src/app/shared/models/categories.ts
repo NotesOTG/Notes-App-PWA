@@ -1,14 +1,14 @@
 export enum Catergories {
 
-    NONE,
-    FOOD,
-    MOVIE,
-    EDUCATION,
-    ART,
-    ANIMALS,
-    DESIGN,
-    ENTERTAINMENT,
-    GARDENING,
-    AUTOMOBILE,
+    NONE = "None", 
+    FOOD = "Food",
+    MOVIE = "Movie",
+    EDUCATION = "Education",
+    ART = "Art",
+    ANIMALS = "Animals",
+    DESIGN = "Design",
+    ENTERTAINMENT = "Entertainment",
+    GARDENING = "Gardening",
+    AUTOMOBILE = "Automobile",
 
 }

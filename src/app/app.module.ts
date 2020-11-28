@@ -16,12 +16,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { LandingComponent } from './modules/landing/landing.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AddCardComponent } from './modules/add-card/add-card.component';
+import { EditCardComponent } from './modules/edit-card/edit-card.component';
+import { ViewCardComponent } from './modules/view-card/view-card.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+ 
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    LandingComponent
+    LandingComponent,
+    AddCardComponent,
+    EditCardComponent,
+    ViewCardComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +42,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCardModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [
     ThemeService,

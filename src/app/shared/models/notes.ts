@@ -6,16 +6,16 @@ export class Notes {
 
     private _body: string;
 
-    private _date: Date;
+    private _date: string;
 
     private _checklist: boolean;
 
     private _category: Catergories;
 
-    constructor (name: string, body: string, date: Date, checklist: boolean = false, category: Catergories = Catergories.NONE) {
+    constructor (name: string, body: string, checklist: boolean = false, category: Catergories = Catergories.NONE) {
         this.name = name;
         this.body = body;
-        this.date = date,
+        this.date = new Date().toLocaleDateString(),
         this.checklist = checklist;
         this.category = category;
     }
@@ -36,11 +36,11 @@ export class Notes {
         this._body = value;
     }
 
-    public get date(): Date {
+    public get date(): string {
         return this._date;
     }
     
-    public set date(value: Date) {
+    public set date(value: string) {
         this._date = value;
     }
 
