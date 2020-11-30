@@ -8,3 +8,48 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.form-group {
+
+    mat-form-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+  
+    .mat-form-field-infix {
+      border-top: 0.5em solid transparent;
+    }
+  
+    .mat-card-header-text {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .mat-card-title {
+      font-size: 1.5rem;
+      line-height: 42px;
+    }
+  
+    .text-danger {
+      color: #d9534f;
+    }
+  
+    .mat-form-field-subscript-wrapper {
+      position: relative;
+      font-size: 85%;
+    }
+  
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+    }
+  
+    h3 {
+      margin: 0;
+    }
+  
+}
+
+.form-shadow {
+  border: 2px purple solid;
+}

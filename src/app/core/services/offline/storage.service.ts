@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class StorageService {
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * Gets and return the type inside the local storage.
@@ -13,7 +14,7 @@ export class StorageService {
    * @param storageType The storage type to find
    */
   public getFromStorage(storageType: StorageType): any {
-    return localStorage ? localStorage.getItem(storageType) : null;
+    return localStorage ? JSON.parse(localStorage.getItem(storageType)) : null;
   }
 
   /**
@@ -33,7 +34,7 @@ export class StorageService {
    */
   public addToStorage(storageType: StorageType, value: any): void {
     if (localStorage) {
-      localStorage.setItem(storageType, value);
+      localStorage.setItem(storageType, JSON.stringify(value));
     }
   }
 
@@ -52,5 +53,6 @@ export class StorageService {
  * The type of storages
  */
 export enum StorageType {
-  THEME = 'theme'
+  THEME = 'theme',
+  NOTES = 'notes'
 }

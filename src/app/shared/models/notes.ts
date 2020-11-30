@@ -2,30 +2,32 @@ import { Catergories } from './categories';
 
 export class Notes {
 
-    private _name: string;
+    private _title: string;
 
     private _body: string;
 
-    private _date: string;
+    private _creationDate: string;
+
+    private _modifiedDate: number;
 
     private _checklist: boolean;
 
-    private _category: Catergories;
+    private _category: string;
 
-    constructor (name: string, body: string, checklist: boolean = false, category: Catergories = Catergories.NONE) {
-        this.name = name;
+    constructor (name: string, body: string, checklist: boolean = false, category: string = Catergories.NONE) {
+        this.title = name;
         this.body = body;
-        this.date = new Date().toLocaleDateString(),
+        this._modifiedDate = Date.now() - 8.64e+7,
         this.checklist = checklist;
         this.category = category;
     }
 
-    public get name(): string {
-        return this._name;
+    public get title(): string {
+        return this._title;
     }
     
-    public set name(value: string) {
-        this._name = value;
+    public set title(value: string) {
+        this._title = value;
     }
 
     public get body(): string {
@@ -36,12 +38,12 @@ export class Notes {
         this._body = value;
     }
 
-    public get date(): string {
-        return this._date;
+    public get creationDate(): string {
+        return this._creationDate;
     }
     
-    public set date(value: string) {
-        this._date = value;
+    public set creationDate(value: string) {
+        this._creationDate = value;
     }
 
     public get checklist(): boolean {
@@ -52,12 +54,19 @@ export class Notes {
         this._checklist = value;
     }
 
-    public get category(): Catergories {
+    public get category(): string {
         return this._category;
     }
 
-    public set category(value: Catergories) {
+    public set category(value: string) {
         this._category = value;
+    }
+
+    public get modifiedDate(): number {
+        return this._modifiedDate;
+    }
+    public set modifiedDate(value: number) {
+        this._modifiedDate = value;
     }
 
 }
