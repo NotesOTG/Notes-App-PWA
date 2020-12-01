@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dexie } from 'dexie';
-import { Catergories } from 'src/app/shared/models/categories';
 import { Notes } from 'src/app/shared/models/notes';
-import { NoteService } from './note.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +8,13 @@ import { NoteService } from './note.service';
 
 export class StorageService {
 
+  /**
+   * The database object
+   */
   private _db: Dexie;
 
   constructor() {
-    this._db = new Dexie("notes-db");
-    //this._db.delete();
-    this._db.version(1).stores({
-      notes: '++id, title, body, checklist, categoory, creationDate, modifiedDate',
-      theme: '++, themeColor'
-    });
-
-    this._db.table(StorageType.NOTES).mapToClass(Notes);
+    this.initializeDB();
   }
 
   /**
@@ -29,6 +23,22 @@ export class StorageService {
    */
   public getTable(storageType: StorageType) {
     return this._db.table(storageType);
+  }
+
+  /**
+   * Initializes users browser database
+   * First creates the database name
+   * Then adds the stores to the databse
+   * And maps all the tables to classes(if needed)
+   */
+  private initializeDB(): void {
+    this._db = new Dexie("notes-db");
+    this._db.version(1).stores({
+      notes: '++id, title, body, checklist, categoory, creationDate, modifiedDate',
+      theme: '++, themeColor'
+    });
+
+    this._db.table(StorageType.NOTES).mapToClass(Notes);
   }
   
 }
