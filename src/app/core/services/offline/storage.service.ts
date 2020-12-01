@@ -1,50 +1,34 @@
 import { Injectable } from '@angular/core';
+import { Dexie } from 'dexie';
+import { Catergories } from 'src/app/shared/models/categories';
+import { Notes } from 'src/app/shared/models/notes';
+import { NoteService } from './note.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class StorageService {
 
+  private _db: Dexie;
+
   constructor() {
+    this._db = new Dexie("notes-db");
+    //this._db.delete();
+    this._db.version(1).stores({
+      notes: '++id, title, body, checklist, categoory, creationDate, modifiedDate',
+      theme: '++, themeColor'
+    });
+
+    this._db.table(StorageType.NOTES).mapToClass(Notes);
   }
 
   /**
-   * Gets and return the type inside the local storage.
-   * If the key isn't found returns null
-   * @param storageType The storage type to find
+   * Gets the table of the internal DB
+   * @param storageType - The type of table were getting
    */
-  public getFromStorage(storageType: StorageType): any {
-    return localStorage ? JSON.parse(localStorage.getItem(storageType)) : null;
-  }
-
-  /**
-   * Removes the type inside the local storage
-   * @param storageType The storage type to find
-   */
-  public removeFromStorage(storageType: StorageType): void {
-    if (localStorage) {
-      localStorage.removeItem(storageType);
-    }
-  }
-
-  /**
-   * Saves the data with the storage type specified into local storage
-   * @param storageType The storage type
-   * @param value The data that's being saved to the storage type
-   */
-  public addToStorage(storageType: StorageType, value: any): void {
-    if (localStorage) {
-      localStorage.setItem(storageType, JSON.stringify(value));
-    }
-  }
-
-  /**
-   * Clears the storage
-   */
-  public clearStorage() {
-    if (localStorage) {
-      localStorage.clear();
-    }
+  public getTable(storageType: StorageType) {
+    return this._db.table(storageType);
   }
   
 }

@@ -22,14 +22,14 @@ export class ThemeService {
   /**
    * Sets the theme on app startup
    */
-  public setThemeOnStart(): void {
-    let storedTheme: ThemeType = this.storage.getFromStorage(this.THEME_KEY);
+  public async setThemeOnStart(): Promise<void> {
+    let storedTheme: ThemeType = await this.storage.getTable(StorageType.THEME).get(0);
     const colorQueryList: MediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
-    
-    if (storedTheme === null) {
+
+    if (storedTheme === (null || undefined)) {
       colorQueryList.matches ? this.setTheme(ThemeType.DARK) : this.setTheme(ThemeType.LIGHT);
     } else {
-      this.setTheme(this.storage.getFromStorage(this.THEME_KEY));
+      this.setTheme(await this.storage.getTable(StorageType.THEME).get(0));
     }
 
     colorQueryList.addEventListener("change", () => {
@@ -45,14 +45,16 @@ export class ThemeService {
    * Sets the theme based on the supplied theme type
    * @param themeType The theme type
    */
-  public setTheme(themeType: ThemeType): void {
+  public async setTheme(themeType: ThemeType): Promise<void> {
     let bodyClass = document.body.classList;
     if (bodyClass.contains(this.theme)) {
       bodyClass.remove(this.theme);
     }    
     bodyClass.add(themeType);
     this.theme = themeType;
-    this.storage.addToStorage(this.THEME_KEY, themeType);   
+    //this.storage.addToStorage(this.THEME_KEY, themeType);
+    await this.storage.getTable(StorageType.THEME).clear();
+    await this.storage.getTable(StorageType.THEME).add(themeType); 
   }
 
   /**

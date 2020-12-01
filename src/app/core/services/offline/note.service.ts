@@ -22,46 +22,39 @@ export class NoteService {
    */
   public addNote(note: Notes): void {
     this._notes.push(note);
-    this.saveNotesInternal();
+    this.storage.getTable(StorageType.NOTES).put(note);
   }
 
   /**
    * Removes the note array and from internal storage
    * @param note - the note were removing
    */
-  public removeNote(note: Notes): void {
+  public async removeNote(note: Notes): Promise<void> {
     for (let i = 0; i < this._notes.length; i++) {
       if (this._notes[i].title === note.title) {
         this._notes.splice(i, 1);
+        await this.storage.getTable(StorageType.NOTES).delete(this._notes[i].id);
       }
     }
-    this.saveNotesInternal();
   }
 
   /**
    * Will remove all the notes from array and internal storage
    */
-  public removeAllNotes(): void {
+  public async removeAllNotes(): Promise<void> {
     this._notes = [];
-    this.storage.removeFromStorage(StorageType.NOTES);
+    await this.storage.getTable(StorageType.NOTES).clear();
   }
 
   /**
    * Get the notes internally
    */
-  private getNotesInternal(): void {
-    let internalNotes: Notes[] = this.storage.getFromStorage(StorageType.NOTES);
-    if (internalNotes !== undefined || null) {
-      this._notes = internalNotes;
+  private async getNotesInternal(): Promise<void> {
+    let internalNotes: Notes[] = await this.storage.getTable(StorageType.NOTES).toArray();
+    if (internalNotes !== (undefined || null)) {
+        this._notes = internalNotes;
+        console.log(internalNotes[0].title);
     }
-  }
-
-  /**
-   * Saves the note internally, first removing the notes
-   */
-  private saveNotesInternal(): void {
-    this.storage.removeFromStorage(StorageType.NOTES);
-    this.storage.addToStorage(StorageType.NOTES, this._notes);
   }
 
   /**

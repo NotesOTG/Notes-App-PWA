@@ -14,12 +14,15 @@ export class Notes {
 
     private _category: string;
 
-    constructor (name: string, body: string, checklist: boolean = false, category: string = Catergories.NONE) {
+    private _id: number;
+
+    constructor (name: string, body: string, checklist: boolean = false, category: string = Catergories.NONE, id?: number) {
         this.title = name;
         this.body = body;
         this._modifiedDate = Date.now() - 8.64e+7,
         this.checklist = checklist;
         this.category = category;
+        this.id = id;
     }
 
     public get title(): string {
@@ -67,6 +70,13 @@ export class Notes {
     }
     public set modifiedDate(value: number) {
         this._modifiedDate = value;
+    }
+
+    public get id(): number {
+        return this._id;
+    }
+    public set id(value: number) {
+        this._id = value;
     }
 
 }

@@ -19,11 +19,12 @@ import { LandingComponent } from './modules/landing/landing.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddCardComponent } from './modules/add-card/add-card.component';
 import { EditCardComponent } from './modules/edit-card/edit-card.component';
-import { ViewCardComponent } from './modules/view-card/view-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TimeCardComponent } from './modules/time-card/time-card.component';
+import { ViewCardComponent } from './modules/time-card/view-card/view-card.component';
  
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LandingComponent,
     AddCardComponent,
     EditCardComponent,
-    ViewCardComponent
+    ViewCardComponent,
+    TimeCardComponent
   ],
   imports: [
     BrowserModule,

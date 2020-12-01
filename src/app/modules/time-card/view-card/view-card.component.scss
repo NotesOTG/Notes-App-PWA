@@ -1,0 +1,18 @@
+#view-actions {
+    cursor: pointer;
+    line-height: 42px;
+
+    &:last-child {
+        margin-left: 16px;
+        color: red;
+    }
+}
+
+.dates-container {
+    font-size: 0.75rem;
+    line-height: 8px;
+    font-style: italic;
+    float: right;
+    text-align: right;
+    margin-top: 4px;
+}
