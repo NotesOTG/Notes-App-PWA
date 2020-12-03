@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Notes } from 'src/app/shared/models/notes';
+import { StateTypes } from 'src/app/shared/models/state-types';
 import { StorageService, StorageType } from './storage.service';
 
 @Injectable({
@@ -11,6 +13,11 @@ export class NoteService {
    * The notes object as an array
    */
   private _notes: Notes[] = new Array();
+
+  /**
+   * The state subject object, takes StateTypes
+   */
+  private _stateSubject: Subject<StateTypes> = new Subject<StateTypes>();
 
   constructor(private storage: StorageService) {
     this.getNotesInternal();
@@ -73,6 +80,13 @@ export class NoteService {
    */
   public get notes(): Notes[] {
     return this._notes;
+  }
+
+  /**
+   * Gets the state subject object
+   */
+  public get stateSubject(): Subject<StateTypes> {
+    return this._stateSubject;
   }
 
 }

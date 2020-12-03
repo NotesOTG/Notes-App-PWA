@@ -1,0 +1,21 @@
+.pop-card {
+    position: absolute;//fixed
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    overflow-y: auto;
+    //transition: all 1s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-height: 590px) {
+    .pop-card {
+        justify-content: flex-start;
+    }
+}

@@ -1,42 +1,35 @@
-<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 5%; margin-bottom: 5%;">
-    <mat-card fxFlex.lt-md="90" fxFlex="60" class="form-group form-shadow">
-        <mat-card-header>
-          <mat-card-title>New Note</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <form [formGroup]="AddNoteForm" (ngSubmit)="onSubmit()" >
-           <label for="title">Title <span style="color: deeppink;">*</span></label>
-            <mat-form-field appearance="outline">
-                <input matInput type="text" id="title" formControlName="title">
-                <mat-error *ngIf="title.hasError('required')">Title is required</mat-error>
-                <mat-error *ngIf="title.hasError('minlength')">Title has to be three characters or longer</mat-error>
-            </mat-form-field>
-            <label for="category">Category</label>
-            <mat-checkbox style="margin-left: 2rem;" (click)="customCategoryClicked()">Custom</mat-checkbox>
-            <mat-form-field appearance="outline">
-                <mat-select id="category" *ngIf="!isCustomCategory" formControlName="category">
-                    <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
-                </mat-select>
-                <input matInput *ngIf="isCustomCategory" type="text" id="category" placeholder="Custom Category Text" formControlName="category">
-                <mat-error *ngIf="category.hasError('required')">Custom Category is required</mat-error>
-                <mat-error *ngIf="category.hasError('minlength')">Custom Category must have two or more characters</mat-error>
-            </mat-form-field>
-            <label for="body">Body</label>
-            <mat-form-field class="example-full-width" appearance="outline">
-              <textarea matInput rows="10" formControlName="body"></textarea>
-              <mat-error *ngIf="body.hasError('required')">Body is required</mat-error>
-              <mat-error *ngIf="body.hasError('minlength')">Body has to be three characters or longer</mat-error>
-            </mat-form-field>
-            <div style="float: right; text-align: right;">
-              <p>
-                last modified: 11/27/2020 8:26pm
-              </p>
-              <p>
-                created: 11/26/2020
-              </p>
-            </div>
-            <button mat-raised-button color="accent" [disabled]="AddNoteForm.invalid || AddNoteForm.pristine">Save</button>
-          </form>
-        </mat-card-content>
-    </mat-card>
-</div>
+<app-note-pop-card title="New Note">
+  <form [formGroup]="AddNoteForm" (ngSubmit)="onSubmit()" >
+    <label for="title">Title <span style="color: deeppink;">*</span></label>
+     <mat-form-field appearance="outline">
+         <input matInput type="text" id="title" formControlName="title">
+         <mat-error *ngIf="title.hasError('required')">Title is required</mat-error>
+         <mat-error *ngIf="title.hasError('minlength')">Title has to be three characters or longer</mat-error>
+     </mat-form-field>
+     <label for="category">Category</label>
+     <mat-checkbox style="margin-left: 2rem;" (click)="customCategoryClicked()">Custom</mat-checkbox>
+     <mat-form-field appearance="outline">
+         <mat-select id="category" *ngIf="!isCustomCategory" formControlName="category">
+             <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+         </mat-select>
+         <input matInput *ngIf="isCustomCategory" type="text" id="category" placeholder="Custom Category Text" formControlName="category">
+         <mat-error *ngIf="category.hasError('required')">Custom Category is required</mat-error>
+         <mat-error *ngIf="category.hasError('minlength')">Custom Category must have two or more characters</mat-error>
+     </mat-form-field>
+     <label for="body">Body</label>
+     <mat-form-field class="example-full-width" appearance="outline">
+       <textarea matInput rows="10" formControlName="body"></textarea>
+       <mat-error *ngIf="body.hasError('required')">Body is required</mat-error>
+       <mat-error *ngIf="body.hasError('minlength')">Body has to be three characters or longer</mat-error>
+     </mat-form-field>
+     <div style="float: right; text-align: right;">
+       <p>
+         last modified: 11/27/2020 8:26pm
+       </p>
+       <p>
+         created: 11/26/2020
+       </p>
+     </div>
+     <button mat-raised-button color="accent" [disabled]="AddNoteForm.invalid || AddNoteForm.pristine">Save</button>
+   </form>
+</app-note-pop-card>

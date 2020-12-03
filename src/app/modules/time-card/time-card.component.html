@@ -1,1 +1,7 @@
-<p>time-card works!</p>
+<button mat-raised-button color="accent" (click)="addState()">Hello!</button>
+
+<app-view-card></app-view-card>
+
+<div class="pop-card" *ngIf="currentState !== states.DEFAULT">
+    <app-add-card *ngIf="currentState === states.CREATE"></app-add-card>
+</div>
