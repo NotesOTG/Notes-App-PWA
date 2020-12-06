@@ -56,7 +56,7 @@ export class AddCardComponent implements OnInit {
    * The submit method for the form
    */
   public onSubmit() {
-    let note = new Notes(this.title.value, this.body.value, false, this.category.value);
+    let note = new Notes(this.title.value, this.body.value, false, this.category.value, this.isCustomCategory);
     if (note.creationDate == undefined || null) {
       note.creationDate = new Date().toLocaleDateString();
     }

@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
@@ -15,17 +16,25 @@ export class TimeCardComponent implements OnInit {
 
   states = StateTypes;
 
-  constructor(public noteService: NoteService) { }
+  constructor(public noteService: NoteService, public router: Router) { }
 
   ngOnInit(): void {
     this.noteService.stateSubject.subscribe((state: StateTypes) => {
       console.log('currentstate: ', state);
       this.currentState = state;
+      if (state === StateTypes.DEFAULT || state === StateTypes.CREATE) {
+        this.noteService.currentNoteId = -1;
+      }
     });
   }
 
-  public addState() {
-    this.noteService.stateSubject.next(StateTypes.CREATE);
+  public addState(newState: StateTypes) {
+    this.noteService.stateSubject.next(newState);
+  }
+
+  public addNoteId(id: number) {
+    console.log('id being added: ', id);
+    this.noteService.currentNoteId = id;
   }
 
 }

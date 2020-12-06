@@ -1,5 +1,5 @@
 .pop-card {
-    position: absolute;//fixed
+    position: fixed;//fixed
     top: 0;
     left: 0;
     height: 100%;
@@ -12,6 +12,25 @@
     overflow-y: auto;
     //transition: all 1s ease;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+#view-actions {
+    cursor: pointer;
+    line-height: 42px;
+
+    &:last-child {
+        margin-left: 16px;
+        color: red;
+    }
+}
+
+.dates-container {
+    font-size: 0.75rem;
+    line-height: 8px;
+    font-style: italic;
+    float: right;
+    text-align: right;
+    margin-top: 4px;
 }
 
 @media (max-height: 590px) {

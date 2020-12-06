@@ -7,8 +7,7 @@ import { ViewCardComponent } from './modules/time-card/view-card/view-card.compo
 
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
-  { path: 'add', component: AddCardComponent, pathMatch: 'full'},
-  { path: 'notes', component: TimeCardComponent, pathMatch: 'full'}
+  { path: 'notes', component: TimeCardComponent, pathMatch: 'full'},
 ];
 
 @NgModule({

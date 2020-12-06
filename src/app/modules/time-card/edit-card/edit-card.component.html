@@ -1,1 +1,35 @@
-<p>edit-card works!</p>
+<app-note-pop-card title="View Note">
+  <form [formGroup]="AddNoteForm" (ngSubmit)="onSubmit()" >
+    <label for="title">Title <span style="color: deeppink;">*</span></label>
+     <mat-form-field appearance="outline" (click)="editFormCheck()">
+         <input matInput type="text" id="title" formControlName="title" >
+         <mat-error *ngIf="title.hasError('required')">Title is required</mat-error>
+         <mat-error *ngIf="title.hasError('minlength')">Title has to be three characters or longer</mat-error>
+     </mat-form-field>
+     <label for="category">Category</label>
+     <mat-checkbox style="margin-left: 2rem;" (click)="customCategoryClicked(); editFormCheck();" [disabled]="!formEditable" [checked]="isCustomCategory">Custom</mat-checkbox>
+     <mat-form-field appearance="outline">
+         <mat-select id="category" *ngIf="!isCustomCategory" formControlName="category" (click)="editFormCheck()">
+             <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+         </mat-select>
+         <input matInput *ngIf="isCustomCategory" type="text" id="category" placeholder="Custom Category Text" (click)="editFormCheck()" formControlName="category">
+         <mat-error *ngIf="category.hasError('required')">Custom Category is required</mat-error>
+         <mat-error *ngIf="category.hasError('minlength')">Custom Category must have two or more characters</mat-error>
+     </mat-form-field>
+     <label for="body">Body</label>
+     <mat-form-field class="example-full-width" appearance="outline" (click)="editFormCheck()">
+       <textarea matInput rows="10" formControlName="body"></textarea>
+       <mat-error *ngIf="body.hasError('required')">Body is required</mat-error>
+       <mat-error *ngIf="body.hasError('minlength')">Body has to be three characters or longer</mat-error>
+     </mat-form-field>
+     <div style="float: right; text-align: right;">
+       <p>
+         last modified: {{noteService.getModifiedDate(note.modifiedDate)}}
+       </p>
+       <p>
+         created: {{note.creationDate}}
+       </p>
+     </div>
+     <button mat-raised-button color="accent" [disabled]="AddNoteForm.invalid || AddNoteForm.pristine">Save</button>
+   </form>
+</app-note-pop-card>

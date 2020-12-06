@@ -34,7 +34,7 @@ export class StorageService {
   private initializeDB(): void {
     this._db = new Dexie("notes-db");
     this._db.version(1).stores({
-      notes: '++id, title, body, checklist, categoory, creationDate, modifiedDate',
+      notes: '++id, title, body, checklist, categoory, creationDate, modifiedDate, customCategory',
       theme: '++, themeColor'
     });
 

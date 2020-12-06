@@ -19,8 +19,17 @@ export class NoteService {
    */
   private _stateSubject: Subject<StateTypes> = new Subject<StateTypes>();
 
+  /**
+   * 
+   */
+  private _currentNoteId: number = -1;
+
   constructor(private storage: StorageService) {
     this.getNotesInternal();
+  }
+
+  public getNote(noteId: number): Notes {
+    return this.notes.find(note => note.id === noteId);
   }
 
   /**
@@ -87,6 +96,13 @@ export class NoteService {
    */
   public get stateSubject(): Subject<StateTypes> {
     return this._stateSubject;
+  }
+
+  public get currentNoteId(): number {
+    return this._currentNoteId;
+  }
+  public set currentNoteId(value: number) {
+    this._currentNoteId = value;
   }
 
 }

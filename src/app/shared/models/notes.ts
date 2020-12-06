@@ -16,11 +16,14 @@ export class Notes {
 
     private _id: number;
 
-    constructor (name: string, body: string, checklist: boolean = false, category: string = Catergories.NONE, id?: number) {
+    private _customCategory: boolean;
+
+    constructor (name: string, body: string, checklist: boolean = false, category: string = Catergories.NONE, customCategory: boolean = false, id?: number) {
         this.title = name;
         this.body = body;
-        this._modifiedDate = Date.now() - 8.64e+7,
+        this._modifiedDate = Date.now(),
         this.checklist = checklist;
+        this._customCategory = customCategory;
         this.category = category;
         this.id = id;
     }
@@ -77,6 +80,13 @@ export class Notes {
     }
     public set id(value: number) {
         this._id = value;
+    }
+
+    public get customCategory(): boolean {
+        return this._customCategory;
+    }
+    public set customCategory(value: boolean) {
+        this._customCategory = value;
     }
 
 }
