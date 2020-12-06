@@ -33,12 +33,17 @@ export class NoteService {
   }
 
   /**
-   * Adds the note the array and saves them internally
+   * Adds the note the array and saves them internally, returns success or failed
    * @param note - The note object were adding
    */
-  public addNote(note: Notes): void {
-    this._notes.push(note);
-    this.storage.getTable(StorageType.NOTES).put(note);
+  public async addNote(note: Notes): Promise<boolean> {
+    let save = await this.storage.getTable(StorageType.NOTES).add(note);
+
+    if (save !== (null || undefined)) {
+      this._notes.push(note);
+    }
+
+    return save !== (null || undefined) ? true: false;
   }
 
   /**
@@ -52,6 +57,30 @@ export class NoteService {
         await this.storage.getTable(StorageType.NOTES).delete(this._notes[i].id);
       }
     }
+  }
+
+  /**
+   * Attempts to update the note to internal storage and array returns if success or not
+   * @param noteId - the id of the note we're updating
+   * @param note - the note object we're wanting to update
+   */
+  public async updateNote(noteId: number, note: Notes): Promise<boolean> {
+    let selectedNote: number = this.notes.findIndex(note => note.id === noteId);
+    if (selectedNote === -1) {
+      return false;
+    }
+
+    this.notes.splice(selectedNote, 1, note);
+    let save = await this.storage.getTable(StorageType.NOTES).update(selectedNote + 1, {
+      title: note.title,
+      body: note.body,
+      checklist: note.checklist,
+      category: note.category,
+      modifiedDate: note.modifiedDate,
+      customCategory: note.customCategory,
+    });
+
+    return  save === 1 ? true: false;
   }
 
   /**

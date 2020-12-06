@@ -32,9 +32,4 @@ export class TimeCardComponent implements OnInit {
     this.noteService.stateSubject.next(newState);
   }
 
-  public addNoteId(id: number) {
-    console.log('id being added: ', id);
-    this.noteService.currentNoteId = id;
-  }
-
 }

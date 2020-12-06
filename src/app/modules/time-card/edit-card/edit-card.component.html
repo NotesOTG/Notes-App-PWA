@@ -6,7 +6,7 @@
          <mat-error *ngIf="title.hasError('required')">Title is required</mat-error>
          <mat-error *ngIf="title.hasError('minlength')">Title has to be three characters or longer</mat-error>
      </mat-form-field>
-     <label for="category">Category</label>
+     <label for="category">Category <span style="color: deeppink;">*</span></label>
      <mat-checkbox style="margin-left: 2rem;" (click)="customCategoryClicked(); editFormCheck();" [disabled]="!formEditable" [checked]="isCustomCategory">Custom</mat-checkbox>
      <mat-form-field appearance="outline">
          <mat-select id="category" *ngIf="!isCustomCategory" formControlName="category" (click)="editFormCheck()">
@@ -16,7 +16,7 @@
          <mat-error *ngIf="category.hasError('required')">Custom Category is required</mat-error>
          <mat-error *ngIf="category.hasError('minlength')">Custom Category must have two or more characters</mat-error>
      </mat-form-field>
-     <label for="body">Body</label>
+     <label for="body">Body <span style="color: deeppink;">*</span></label>
      <mat-form-field class="example-full-width" appearance="outline" (click)="editFormCheck()">
        <textarea matInput rows="10" formControlName="body"></textarea>
        <mat-error *ngIf="body.hasError('required')">Body is required</mat-error>

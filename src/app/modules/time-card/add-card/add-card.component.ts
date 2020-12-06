@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { Catergories } from 'src/app/shared/models/categories';
 import { Notes } from 'src/app/shared/models/notes';
+import { StateTypes } from 'src/app/shared/models/state-types';
 
 @Component({
   selector: 'app-add-card',
@@ -28,7 +30,8 @@ export class AddCardComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private snackbar: MatSnackBar
   ) {
     this.categories = Object.values(Catergories);
     this.AddNoteForm = this.fb.group({
@@ -61,7 +64,14 @@ export class AddCardComponent implements OnInit {
       note.creationDate = new Date().toLocaleDateString();
     }
 
-    this.noteService.addNote(note);
+    let result = this.noteService.addNote(note);
+
+    if (result) {
+      this.snackbar.open('Your note was saved', 'Close', {duration: 1000 * 5});
+      this.noteService.stateSubject.next(StateTypes.DEFAULT);
+    } else {
+      this.snackbar.open("Your note couldn't be saved", 'Close', {duration: 1000 * 5});
+    }
   }
 
   /**

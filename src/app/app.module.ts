@@ -27,6 +27,8 @@ import { AddCardComponent } from './modules/time-card/add-card/add-card.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { NotePopCardComponent } from './shared/components/note-pop-card/note-pop-card.component';
 import { EditCardComponent } from './modules/time-card/edit-card/edit-card.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DeleteCardComponent } from './modules/time-card/delete-card/delete-card.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { EditCardComponent } from './modules/time-card/edit-card/edit-card.compo
     EditCardComponent,
     ViewCardComponent,
     TimeCardComponent,
-    NotePopCardComponent
+    NotePopCardComponent,
+    DeleteCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { EditCardComponent } from './modules/time-card/edit-card/edit-card.compo
     MatSelectModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     ThemeService,

@@ -13,10 +13,21 @@ import { StateTypes } from 'src/app/shared/models/state-types';
 })
 export class ViewCardComponent implements OnInit {
 
-  constructor() {}
+  states = StateTypes;
+
+  constructor(public noteService: NoteService) {}
   
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  }
+
+
+  public addState(newState: StateTypes) {
+    this.noteService.stateSubject.next(newState);
+  }
+
+  public addNoteId(id: number) {
+    console.log('id being added: ', id);
+    this.noteService.currentNoteId = id;
   }
 
 }

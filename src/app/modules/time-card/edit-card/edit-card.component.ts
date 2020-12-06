@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { Catergories } from 'src/app/shared/models/categories';
@@ -35,7 +36,8 @@ export class EditCardComponent implements OnInit {
   constructor(
     public noteService: NoteService, 
     public router: Router, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snackbar: MatSnackBar
   ) {
     this.categories = Object.values(Catergories);
   }
@@ -48,7 +50,6 @@ export class EditCardComponent implements OnInit {
     }
 
     this.isCustomCategory = this.note.customCategory;
-
     this.AddNoteForm = this.fb.group({
       title: new FormControl({value: this.note.title, disabled: true}, [Validators.required, Validators.minLength(3)]),
       body: new FormControl({value: this.note.body, disabled: true}, [Validators.required, Validators.minLength(3)]),
@@ -88,11 +89,13 @@ export class EditCardComponent implements OnInit {
    */
   public onSubmit() {
     let note = new Notes(this.title.value, this.body.value, false, this.category.value, this.isCustomCategory);
-    if (note.creationDate == undefined || null) {
-      note.creationDate = new Date().toLocaleDateString();
+    let result = this.noteService.updateNote(this.noteService.currentNoteId, note);
+    if (result) {
+      this.snackbar.open('Your note has been saved', 'close', {duration: 1000 * 5});
+      this.noteService.stateSubject.next(StateTypes.DEFAULT);
+    } else {
+      this.snackbar.open("Your note couldn't be saved", 'close', {duration: 1000 * 5});
     }
-
-    this.noteService.addNote(note);
   }
 
   /**
