@@ -88,8 +88,12 @@ export class EditCardComponent implements OnInit {
    * The submit method for the form
    */
   public onSubmit() {
-    let note = new Notes(this.title.value, this.body.value, false, this.category.value, this.isCustomCategory);
-    let result = this.noteService.updateNote(this.noteService.currentNoteId, note);
+    this.note.title = this.title.value;
+    this.note.body = this.body.value;
+    this.note.category = this.category.value;
+    this.note.customCategory = this.isCustomCategory;
+    this.note.modifiedDate = Date.now();
+    let result = this.noteService.updateNote(this.noteService.currentNoteId, this.note);
     if (result) {
       this.snackbar.open('Your note has been saved', 'close', {duration: 1000 * 5});
       this.noteService.stateSubject.next(StateTypes.DEFAULT);

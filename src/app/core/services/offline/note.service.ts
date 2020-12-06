@@ -50,13 +50,16 @@ export class NoteService {
    * Removes the note array and from internal storage
    * @param note - the note were removing
    */
-  public async removeNote(note: Notes): Promise<void> {
-    for (let i = 0; i < this._notes.length; i++) {
-      if (this._notes[i].title === note.title) {
-        this._notes.splice(i, 1);
-        await this.storage.getTable(StorageType.NOTES).delete(this._notes[i].id);
-      }
+  public async removeNote(noteId: number, note: Notes): Promise<boolean> {
+    let selectedNote: number = this.notes.findIndex(note => note.id === noteId);
+    
+    if (selectedNote === -1) {
+      return false;
     }
+
+    await this.storage.getTable(StorageType.NOTES).delete(noteId);
+    this._notes.splice(selectedNote, 1);
+    return true;
   }
 
   /**
@@ -70,8 +73,7 @@ export class NoteService {
       return false;
     }
 
-    this.notes.splice(selectedNote, 1, note);
-    let save = await this.storage.getTable(StorageType.NOTES).update(selectedNote + 1, {
+    let save = await this.storage.getTable(StorageType.NOTES).update(noteId, {
       title: note.title,
       body: note.body,
       checklist: note.checklist,
@@ -79,6 +81,10 @@ export class NoteService {
       modifiedDate: note.modifiedDate,
       customCategory: note.customCategory,
     });
+
+    if (save === 1) {
+      this.notes.splice(selectedNote, 1, note);
+    }
 
     return  save === 1 ? true: false;
   }

@@ -7,3 +7,6 @@ Body of the NOTES
 date of the NOTES(saving adds new date)
 categories to classify the NOTES
 search so we can search the NOTES
+
+
+ADD DIRECTIVE TO AUTOFOCUS DELETE BUTTON
