@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
-import { Catergories } from 'src/app/shared/models/categories';
-import { Notes } from 'src/app/shared/models/notes';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
 @Component({
@@ -13,6 +9,9 @@ import { StateTypes } from 'src/app/shared/models/state-types';
 })
 export class ViewCardComponent implements OnInit {
 
+  /**
+   * Object for the state types for the html
+   */
   states = StateTypes;
 
   constructor(public noteService: NoteService) {}
@@ -20,14 +19,25 @@ export class ViewCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-  public addState(newState: StateTypes) {
+  /**
+   * This will start a new state, and store the id
+   * @param newState - The state we will switch to
+   * @param id - the id of the note we're using
+   */
+  addStateAndId(newState: StateTypes, id: number) {
+    this.noteService.currentNoteId = id;
     this.noteService.stateSubject.next(newState);
   }
 
-  public addNoteId(id: number) {
-    console.log('id being added: ', id);
-    this.noteService.currentNoteId = id;
+  /**
+   * Cuts the text if over 126 characters, and returns the string
+   * @param text - The text to cut
+   */
+  public cutText(text: string): string {
+    if (text.length >= 127) {
+      return text.substr(0, 127).concat('...');
+    }
+    return text;
   }
 
 }

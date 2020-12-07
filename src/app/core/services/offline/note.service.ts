@@ -113,7 +113,7 @@ export class NoteService {
    * @param modifiedDate - the notes modified date
    */
   public getModifiedDate(modifiedDate: number): string {
-    if (new Date(modifiedDate).getDay() > new Date(Date.now()).getDay()) {
+    if (new Date(modifiedDate).getDay() < new Date(Date.now()).getDay()) {
       return new Date(modifiedDate).toLocaleDateString();
     }
     return new Date(modifiedDate).toLocaleString();

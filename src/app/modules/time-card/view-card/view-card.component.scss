@@ -16,3 +16,29 @@
     text-align: right;
     margin-top: 4px;
 }
+
+.note-view-card-container {
+    mat-card {
+        margin-bottom: 2%;
+
+        &:nth-child(odd) {
+            margin-left: 2%;
+        }
+
+        &:nth-child(even) {
+            margin-right: 2%;
+        }
+    }
+    margin-top: 2%;
+}
+
+@media (max-width: 959px) {
+    .note-view-card-container {
+        mat-card {
+            margin-left: 4%!important;
+            margin-right: 4%!important;
+            margin-bottom: 4%!important;
+        }
+        margin-top: 4%!important;
+    }
+}
