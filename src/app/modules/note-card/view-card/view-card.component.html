@@ -6,8 +6,9 @@
       <mat-icon id="view-actions" (click)="addStateAndId(states.DELETE, note.id);">delete</mat-icon>
     </mat-card-header>
     <mat-card-content>
-      <p style="min-height: 40px;">{{cutText(note.body)}}</p>
+      <p id="body" style="min-height: 40px;">{{cutText(note.body)}}</p>
       <div class="dates-container">
+        <p>Category: {{note.category}}</p>
         <p>Last Modified: {{noteService.getModifiedDate(note.modifiedDate)}}</p>
         <p>Created: {{note.creationDate}}</p>
       </div>

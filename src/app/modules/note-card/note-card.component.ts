@@ -4,11 +4,11 @@ import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
 @Component({
-  selector: 'app-time-card',
-  templateUrl: './time-card.component.html',
-  styleUrls: ['./time-card.component.scss']
+  selector: 'app-note-card',
+  templateUrl: './note-card.component.html',
+  styleUrls: ['./note-card.component.scss']
 })
-export class TimeCardComponent implements OnInit {
+export class NoteCardComponent implements OnInit {
 
   //TODO: Add way to get view-port div to apply background-color, couldn't becuase of ngIf
 

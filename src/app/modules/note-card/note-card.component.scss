@@ -1,4 +1,4 @@
-.pop-card {
+.pop-card-container {
     position: fixed;//fixed
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@
 }
 
 @media (max-height: 590px) {
-    .pop-card {
+    .pop-card-container {
         justify-content: flex-start;
     }
 }

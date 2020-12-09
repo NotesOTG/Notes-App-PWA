@@ -136,6 +136,7 @@ export class NoteService {
   public get currentNoteId(): number {
     return this._currentNoteId;
   }
+  
   public set currentNoteId(value: number) {
     this._currentNoteId = value;
   }

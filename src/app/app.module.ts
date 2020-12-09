@@ -21,14 +21,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TimeCardComponent } from './modules/time-card/time-card.component';
-import { ViewCardComponent } from './modules/time-card/view-card/view-card.component';
-import { AddCardComponent } from './modules/time-card/add-card/add-card.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NotePopCardComponent } from './shared/components/note-pop-card/note-pop-card.component';
-import { EditCardComponent } from './modules/time-card/edit-card/edit-card.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DeleteCardComponent } from './modules/time-card/delete-card/delete-card.component';
+import { AddCardComponent } from './modules/note-card/add-card/add-card.component';
+import { DeleteCardComponent } from './modules/note-card/delete-card/delete-card.component';
+import { EditCardComponent } from './modules/note-card/edit-card/edit-card.component';
+import { NoteCardComponent } from './modules/note-card/note-card.component';
+import { ViewCardComponent } from './modules/note-card/view-card/view-card.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { DeleteCardComponent } from './modules/time-card/delete-card/delete-card
     AddCardComponent,
     EditCardComponent,
     ViewCardComponent,
-    TimeCardComponent,
+    NoteCardComponent,
     NotePopCardComponent,
     DeleteCardComponent,
   ],
