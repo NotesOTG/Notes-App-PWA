@@ -29,6 +29,8 @@ import { DeleteCardComponent } from './modules/note-card/delete-card/delete-card
 import { EditCardComponent } from './modules/note-card/edit-card/edit-card.component';
 import { NoteCardComponent } from './modules/note-card/note-card.component';
 import { ViewCardComponent } from './modules/note-card/view-card/view-card.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ViewCardComponent } from './modules/note-card/view-card/view-card.compo
     MatCheckboxModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule,
+    MatListModule
   ],
   providers: [
     ThemeService,

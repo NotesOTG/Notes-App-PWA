@@ -45,7 +45,13 @@ export class ThemeService {
    * Sets the theme based on the supplied theme type
    * @param themeType The theme type
    */
-  public async setTheme(themeType: ThemeType): Promise<void> {
+  public async setTheme(themeType: ThemeType = null): Promise<void> {
+    if (themeType === null) {
+      themeType = this.theme === ThemeType.DARK ? 
+        ThemeType.LIGHT : 
+        ThemeType.DARK;
+    }
+
     let bodyClass = document.body.classList;
     if (bodyClass.contains(this.theme)) {
       bodyClass.remove(this.theme);
@@ -56,6 +62,8 @@ export class ThemeService {
     await this.storage.getTable(StorageType.THEME).clear();
     await this.storage.getTable(StorageType.THEME).add(themeType); 
   }
+
+
 
   /**
    * Returns a boolean indicating if dark theme

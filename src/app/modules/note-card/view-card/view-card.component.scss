@@ -43,6 +43,12 @@
     }
 }
 
+@media (min-width: 959px) {
+    .no-notes-container {
+        padding-top: 5%;
+    }
+}
+
 @media (min-width: 1797px) {
     #body {
         min-height: auto!important;

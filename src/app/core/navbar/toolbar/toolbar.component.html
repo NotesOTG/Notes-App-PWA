@@ -1,21 +1,30 @@
 <div fxLayout="column" fxFlex="grow" fxFlexFill>
     <mat-toolbar color="primary">
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <button fxHide fxShow.lt-md mat-icon-button (click)="drawer.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>My App</span>
+        <span>Note App</span>
+        <button mat-button routerLink="/" fxShow fxHide.lt-md>Home</button>
+        <button mat-button routerLink="/notes" fxShow fxHide.lt-md>Notes</button>
         <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <!-- format_color_fill -->
+        <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           <mat-icon>invert_colors</mat-icon>
         </button>
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
           <mat-icon>share</mat-icon>
-        </button>
+        </button> -->
     </mat-toolbar>
-    
+
     <mat-sidenav-container autosize fxFlex="100">
         <mat-sidenav #drawer>
-        SIDENAV CONTENT
+          <mat-nav-list class="nav-list">
+              <a mat-list-item routerLink="/"><mat-icon id="nav-icon">home</mat-icon>Home</a>
+              <a mat-list-item routerLink="/notes"><mat-icon id="nav-icon">notes</mat-icon>Notes</a>
+          </mat-nav-list>
         </mat-sidenav>
       
         <mat-sidenav-content fxFlex="grow">
@@ -23,3 +32,19 @@
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="themeService.setTheme()">
+    <mat-icon *ngIf="themeService.isThemeDark()">check_box</mat-icon>
+    <mat-icon *ngIf="!themeService.isThemeDark()">check_box_outline_blank</mat-icon>
+    <span>Dark Mode</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu>

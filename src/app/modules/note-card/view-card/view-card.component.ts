@@ -28,6 +28,10 @@ export class ViewCardComponent implements OnInit {
     this.noteService.currentNoteId = id;
     this.noteService.stateSubject.next(newState);
   }
+  
+  public addState(newState: StateTypes) {
+    this.noteService.stateSubject.next(newState);
+  }
 
   /**
    * Cuts the text if over 126 characters, and returns the string

@@ -20,16 +20,11 @@ export class NoteCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.noteService.stateSubject.subscribe((state: StateTypes) => {
-      console.log('currentstate: ', state);
       this.currentState = state;
       if (state === StateTypes.DEFAULT || state === StateTypes.CREATE) {
         this.noteService.currentNoteId = -1;
       }
     });
-  }
-
-  public addState(newState: StateTypes) {
-    this.noteService.stateSubject.next(newState);
   }
 
 }

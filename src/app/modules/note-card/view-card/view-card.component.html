@@ -1,4 +1,4 @@
-<div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-around none" class="note-view-card-container">
+<div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="space-around none" class="note-view-card-container" *ngIf="noteService.notes.length">
   <mat-card fxFlex="46" class="form-group form-shadow" *ngFor="let note of noteService.notes;">
     <mat-card-header>
       <mat-card-title>{{note.title}}</mat-card-title>
@@ -14,4 +14,11 @@
       </div>
     </mat-card-content>
     </mat-card>
+</div>
+
+<div class="no-notes-container" *ngIf="!noteService.notes.length" fxLayoutAlign="center start" fxLayoutAlign.lt-md="center center" fxFlexFill>
+  <mat-card fxFlex="30" fxFlex.lt-md="90" style="text-align: center;">
+    <h2 style="font-size: 2rem; line-height: 42px;">No notes! <br> Click below!</h2>
+    <button mat-raised-button (click)="addState(states.CREATE)" style="font-size: 1rem;" color="accent">Add Note <mat-icon style="line-height: 20px;">note_add</mat-icon> </button>
+  </mat-card>
 </div>

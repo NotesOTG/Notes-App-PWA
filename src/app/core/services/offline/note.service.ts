@@ -104,7 +104,6 @@ export class NoteService {
     let internalNotes: Notes[] = await this.storage.getTable(StorageType.NOTES).toArray();
     if (internalNotes !== (undefined || null)) {
         this._notes = internalNotes;
-        console.log(internalNotes[0].title);
     }
   }
 
