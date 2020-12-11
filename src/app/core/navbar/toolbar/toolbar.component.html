@@ -7,6 +7,7 @@
         <button mat-button routerLink="/" fxShow fxHide.lt-md>Home</button>
         <button mat-button routerLink="/notes" fxShow fxHide.lt-md>Notes</button>
         <span class="example-spacer"></span>
+        <button mat-icon-button fxHide fxShow.lt-md (click)="noteService.stateSubject.next(stateTypes.CREATE)"><mat-icon>note_add</mat-icon></button>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -38,13 +39,5 @@
     <mat-icon *ngIf="themeService.isThemeDark()">check_box</mat-icon>
     <mat-icon *ngIf="!themeService.isThemeDark()">check_box_outline_blank</mat-icon>
     <span>Dark Mode</span>
-  </button>
-  <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voice mail</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>notifications_off</mat-icon>
-    <span>Disable alerts</span>
   </button>
 </mat-menu>

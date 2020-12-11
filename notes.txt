@@ -11,3 +11,6 @@ search so we can search the NOTES
 
 ADD DIRECTIVE TO AUTOFOCUS DELETE BUTTON
 ADD MAX LENGTHS TO title, and custom category
+
+When we are on /notes show a second navbar for the actions on desktop
+mobile top right of primary navbar

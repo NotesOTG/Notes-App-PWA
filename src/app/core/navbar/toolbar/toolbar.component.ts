@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StateTypes } from 'src/app/shared/models/state-types';
+import { NoteService } from '../../services/offline/note.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
 
 @Component({
@@ -12,7 +14,9 @@ export class ToolbarComponent implements OnInit {
   
   private _enabled = false;
 
-  constructor(public themeService: ThemeService) { }
+  public stateTypes = StateTypes;
+
+  constructor(public themeService: ThemeService, public noteService: NoteService) { }
 
   ngOnInit(): void {
   }
