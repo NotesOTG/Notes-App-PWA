@@ -1,5 +1,5 @@
-<app-note-pop-card title="View Note">
-  <form [formGroup]="AddNoteForm" (ngSubmit)="onSubmit()" >
+<app-note-pop-card title="View Note" (isSaved)="actionButton($event)">
+  <form [formGroup]="editNoteForm" (ngSubmit)="onSubmit()" >
     <label for="title">Title <span style="color: deeppink;">*</span></label>
      <mat-form-field appearance="outline" (click)="editFormCheck()">
          <input matInput type="text" id="title" formControlName="title" >
@@ -30,6 +30,6 @@
          created: {{note.creationDate}}
        </p>
      </div>
-     <button mat-raised-button color="accent" [disabled]="AddNoteForm.invalid || AddNoteForm.pristine">Save</button>
+     <button mat-raised-button color="accent" [disabled]="editNoteForm.invalid || editNoteForm.pristine" fxHide.lt-md>Save</button>
    </form>
 </app-note-pop-card>

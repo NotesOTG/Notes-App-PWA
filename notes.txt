@@ -14,3 +14,4 @@ ADD MAX LENGTHS TO title, and custom category
 
 When we are on /notes show a second navbar for the actions on desktop
 mobile top right of primary navbar
+refactor action buttons(for mobile)

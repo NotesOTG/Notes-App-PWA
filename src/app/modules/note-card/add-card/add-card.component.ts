@@ -74,6 +74,17 @@ export class AddCardComponent implements OnInit {
     }
   }
 
+  public actionButton(event: boolean): void {
+    if (event) {
+      if (this.AddNoteForm.touched && this.AddNoteForm.errors !== null) {
+        this.onSubmit();
+      }
+      this.AddNoteForm.markAllAsTouched();
+    } else {
+      this.noteService.stateSubject.next(StateTypes.DEFAULT);
+    }
+  }
+
   /**
    * Gets the title object from the form
    */

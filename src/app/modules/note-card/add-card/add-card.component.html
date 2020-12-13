@@ -1,4 +1,4 @@
-<app-note-pop-card title="New Note">
+<app-note-pop-card title="New Note" (isSaved)="actionButton($event)">
   <form [formGroup]="AddNoteForm" (ngSubmit)="onSubmit()" >
     <label for="title">Title <span style="color: deeppink;">*</span></label>
      <mat-form-field appearance="outline">
@@ -30,6 +30,6 @@
          created: 11/26/2020
        </p>
      </div>
-     <button mat-raised-button color="accent" [disabled]="AddNoteForm.invalid || AddNoteForm.pristine">Save</button>
+     <button mat-raised-button color="accent" [disabled]="AddNoteForm.invalid || AddNoteForm.pristine" fxHide.lt-md>Save</button>
    </form>
 </app-note-pop-card>

@@ -8,3 +8,15 @@
 mat-card {
     border-width: medium;
 }
+
+.sticky-options {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0px;
+    width: 100%;
+
+    button {
+        border-radius: 0;
+        width: 50%;
+    }
+}

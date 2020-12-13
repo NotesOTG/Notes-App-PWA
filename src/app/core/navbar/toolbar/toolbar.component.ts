@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Event, NavigationEnd, Router } from '@angular/router';
 import { StateTypes } from 'src/app/shared/models/state-types';
 import { NoteService } from '../../services/offline/note.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
@@ -11,22 +12,43 @@ import { ThemeService, ThemeType } from '../../services/offline/theme.service';
 export class ToolbarComponent implements OnInit {
 
   public ThemeType = ThemeType;
-  
-  private _enabled = false;
+
+  private _notesActionBar = false;
 
   public stateTypes = StateTypes;
 
-  constructor(public themeService: ThemeService, public noteService: NoteService) { }
+  constructor(
+    public themeService: ThemeService, 
+    public noteService: NoteService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        switch(event.urlAfterRedirects) {
+          case '/notes':
+            this._notesActionBar = true;
+          break;
+
+          default:
+            this._notesActionBar = false;
+            break;
+        }
+      }
+    });
   }
 
-  public enable() {
-    this._enabled = !this._enabled;
+  public createAndNavigateNotes() {
+    if (this.router.url !== '/notes') {
+      console.log("we're not at notes");
+      this.router.navigateByUrl('/notes');
+    }
+    this.noteService.stateSubject.next(StateTypes.CREATE);
   }
 
-  public get enabled(): boolean {
-    return this._enabled;
+  public get notesActionBar() {
+    return this._notesActionBar;
   }
 
 }

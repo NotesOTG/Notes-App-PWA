@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { Catergories } from 'src/app/shared/models/categories';
@@ -27,7 +27,7 @@ export class EditCardComponent implements OnInit {
   /**
    * The form group for the notes form
    */
-  public AddNoteForm: FormGroup;
+  public editNoteForm: FormGroup;
 
   public note: Notes;
 
@@ -50,7 +50,7 @@ export class EditCardComponent implements OnInit {
     }
 
     this.isCustomCategory = this.note.customCategory;
-    this.AddNoteForm = this.fb.group({
+    this.editNoteForm = this.fb.group({
       title: new FormControl({value: this.note.title, disabled: true}, [Validators.required, Validators.minLength(3)]),
       body: new FormControl({value: this.note.body, disabled: true}, [Validators.required, Validators.minLength(3)]),
       category: new FormControl({value: this.note.category, disabled: true}, [Validators.required, Validators.minLength(2)])
@@ -102,25 +102,36 @@ export class EditCardComponent implements OnInit {
     }
   }
 
+  public actionButton(event: boolean): void {
+    if (event) {
+      if (this.editNoteForm.touched && this.editNoteForm.errors !== null) {
+        this.onSubmit();
+      }
+      this.editNoteForm.markAllAsTouched();
+    } else {
+      this.noteService.stateSubject.next(StateTypes.DEFAULT);
+    }
+  }
+
   /**
    * Gets the title object from the form
    */
   get title() {
-    return this.AddNoteForm.get('title');
+    return this.editNoteForm.get('title');
   }
 
   /**
    * Gets the category object from the form
    */
   get category() {
-    return this.AddNoteForm.get('category');
+    return this.editNoteForm.get('category');
   }
 
   /**
    * Gets the body object from the form
    */
   get body () {
-    return this.AddNoteForm.get('body');
+    return this.editNoteForm.get('body');
   }
 
 }

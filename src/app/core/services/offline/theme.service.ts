@@ -24,6 +24,7 @@ export class ThemeService {
    */
   public async setThemeOnStart(): Promise<void> {
     let storedTheme: ThemeType = await this.storage.getTable(StorageType.THEME).get(0);
+    console.log('storedTheme: ', storedTheme);
     const colorQueryList: MediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
 
     if (storedTheme === (null || undefined)) {
@@ -60,7 +61,7 @@ export class ThemeService {
     this.theme = themeType;
     //this.storage.addToStorage(this.THEME_KEY, themeType);
     await this.storage.getTable(StorageType.THEME).clear();
-    await this.storage.getTable(StorageType.THEME).add(themeType); 
+    await this.storage.getTable(StorageType.THEME).add(themeType, 0); 
   }
 
 

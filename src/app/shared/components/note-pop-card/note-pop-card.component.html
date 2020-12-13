@@ -1,11 +1,15 @@
-<div #div  fxLayout="row" fxLayoutAlign="center center">
+<div #div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
     <mat-card #card fxFlex.lt-md="90" fxFlex="40" class="form-group form-shadow"  style="margin-top: 5%; margin-bottom: 5%;">
         <mat-card-header>
             <mat-card-title>{{title}}</mat-card-title>
-            <mat-icon class="close-icon" (click)="closePressed()">close</mat-icon>
+            <mat-icon class="close-icon" (click)="closePressed()" fxHide.lt-md>close</mat-icon>
         </mat-card-header>
         <mat-card-content>
             <ng-content></ng-content>
         </mat-card-content>
     </mat-card>
+</div>
+<div fxShow.lt-md fxHide class="sticky-options">
+    <button color="accent" mat-raised-button (click)="isSaving(true)">Save</button>
+    <button color="primary" mat-raised-button (click)="isSaving(false)">Cancel</button>
 </div>

@@ -1,5 +1,6 @@
 <div fxLayout="column" fxFlex="grow" fxFlexFill>
     <mat-toolbar color="primary">
+      <mat-toolbar-row>
         <button fxHide fxShow.lt-md mat-icon-button (click)="drawer.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
@@ -7,17 +8,22 @@
         <button mat-button routerLink="/" fxShow fxHide.lt-md>Home</button>
         <button mat-button routerLink="/notes" fxShow fxHide.lt-md>Notes</button>
         <span class="example-spacer"></span>
-        <button mat-icon-button fxHide fxShow.lt-md (click)="noteService.stateSubject.next(stateTypes.CREATE)"><mat-icon>note_add</mat-icon></button>
+        
+        <button mat-icon-button fxHide fxShow.lt-md 
+          (click)="createAndNavigateNotes()">
+          <mat-icon>note_add</mat-icon>
+        </button>
+
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
-        <!-- format_color_fill -->
-        <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>invert_colors</mat-icon>
+        
+      </mat-toolbar-row>
+      <mat-toolbar-row *ngIf="notesActionBar" fxHide.lt-md>
+        <button mat-button fxShow fxHide.lt-md (click)="createAndNavigateNotes()">
+          Add Card
         </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-          <mat-icon>share</mat-icon>
-        </button> -->
+      </mat-toolbar-row>
     </mat-toolbar>
 
     <mat-sidenav-container autosize fxFlex="100">

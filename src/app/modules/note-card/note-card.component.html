@@ -1,9 +1,9 @@
 <app-view-card></app-view-card>
 
 <div #popcard class="pop-card-container" *ngIf="currentState !== states.DEFAULT">
-    <app-add-card *ngIf="currentState === states.CREATE"></app-add-card>
+    <app-add-card *ngIf="currentState === states.CREATE" fxFlexFill></app-add-card>
 
-    <app-edit-card *ngIf="currentState === states.EDIT"></app-edit-card>
+    <app-edit-card *ngIf="currentState === states.EDIT" fxFlexFill></app-edit-card>
 
-    <app-delete-card *ngIf="currentState === states.DELETE"></app-delete-card>
+    <app-delete-card *ngIf="currentState === states.DELETE" fxFlexFill></app-delete-card>
 </div>

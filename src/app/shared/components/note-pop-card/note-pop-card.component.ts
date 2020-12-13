@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from '../../models/state-types';
 
@@ -13,6 +13,8 @@ export class NotePopCardComponent implements OnInit, AfterViewInit {
    * The title for other comps to use, defaults to placeholder title
    */
   @Input() public title: string = 'Placeholder title';
+
+  @Output() public isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /**
    * The viewchild for a html element, finds the ElementRef
@@ -62,6 +64,10 @@ export class NotePopCardComponent implements OnInit, AfterViewInit {
       }
       this.clicks = 0;
     }, 50);
+  }
+
+  public isSaving(save: boolean) {
+    this.isSaved.emit(save);
   }
 
 }

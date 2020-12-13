@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
