@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
@@ -22,7 +23,7 @@ export class EditCardComponent implements OnInit {
   /**
    * Is it a custom category for the html
    */
-  public isCustomCategory: boolean;
+  public isCustomCategory: boolean = false;
   
   /**
    * The form group for the notes form
@@ -32,6 +33,8 @@ export class EditCardComponent implements OnInit {
   public note: Notes;
 
   public formEditable: boolean = false;
+
+
 
   constructor(
     public noteService: NoteService, 
@@ -50,26 +53,33 @@ export class EditCardComponent implements OnInit {
     }
 
     this.isCustomCategory = this.note.customCategory;
+    console.log('custom?', this.isCustomCategory);
     this.editNoteForm = this.fb.group({
-      title: new FormControl({value: this.note.title, disabled: true}, [Validators.required, Validators.minLength(3)]),
+      title: new FormControl({value: this.note.title, disabled: true}, [Validators.required, Validators.minLength(3), Validators.maxLength(14)]),
       body: new FormControl({value: this.note.body, disabled: true}, [Validators.required, Validators.minLength(3)]),
-      category: new FormControl({value: this.note.category, disabled: true}, [Validators.required, Validators.minLength(2)])
+      category: new FormControl({value: this.note.category, disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(14)])
     });
 
   }
 
   /**
-   * Was the custom category button clicked
+   * Listens for changes when checkbox was pressed
    */
-  public customCategoryClicked() {
+  public customCategoryClicked(event: MatCheckboxChange) {
     if (!this.formEditable) {
       return;
     }
 
-    this.isCustomCategory = !this.isCustomCategory;
-    this.isCustomCategory ? 
-    this.category.setValue('') :
-    this.category.setValue(Catergories.NONE);
+    this.isCustomCategory = event.checked;
+    if (this.isCustomCategory) {
+      this.note.customCategory ? 
+        this.category.setValue(this.note.category) :
+        this.category.setValue('');
+    } else {
+      this.categories.find(category => category === this.note.category) ?
+      this.category.setValue(this.note.category) :
+      this.category.setValue(Catergories.NONE);
+    }
   }
 
   /**
@@ -104,7 +114,7 @@ export class EditCardComponent implements OnInit {
 
   public actionButton(event: boolean): void {
     if (event) {
-      if (this.editNoteForm.touched && this.editNoteForm.errors !== null) {
+      if (this.editNoteForm.touched && this.editNoteForm.valid) {
         this.onSubmit();
       }
       this.editNoteForm.markAllAsTouched();

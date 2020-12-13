@@ -14,6 +14,8 @@ export class NotePopCardComponent implements OnInit, AfterViewInit {
    */
   @Input() public title: string = 'Placeholder title';
 
+  @Input() public showButtons: boolean = false;
+
   @Output() public isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /**

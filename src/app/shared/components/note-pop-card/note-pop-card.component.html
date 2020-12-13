@@ -9,7 +9,7 @@
         </mat-card-content>
     </mat-card>
 </div>
-<div fxShow.lt-md fxHide class="sticky-options">
+<div fxShow.lt-md fxHide class="sticky-options" *ngIf="showButtons">
     <button color="accent" mat-raised-button (click)="isSaving(true)">Save</button>
     <button color="primary" mat-raised-button (click)="isSaving(false)">Cancel</button>
 </div>

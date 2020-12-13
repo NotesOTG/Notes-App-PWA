@@ -1,13 +1,14 @@
-<app-note-pop-card title="View Note" (isSaved)="actionButton($event)">
+<app-note-pop-card title="View Note" (isSaved)="actionButton($event)" [showButtons]="true">
   <form [formGroup]="editNoteForm" (ngSubmit)="onSubmit()" >
     <label for="title">Title <span style="color: deeppink;">*</span></label>
      <mat-form-field appearance="outline" (click)="editFormCheck()">
          <input matInput type="text" id="title" formControlName="title" >
          <mat-error *ngIf="title.hasError('required')">Title is required</mat-error>
          <mat-error *ngIf="title.hasError('minlength')">Title has to be three characters or longer</mat-error>
+         <mat-error *ngIf="title.hasError('maxlength')">Title must have fourteen characters or shorter</mat-error>
      </mat-form-field>
      <label for="category">Category <span style="color: deeppink;">*</span></label>
-     <mat-checkbox style="margin-left: 2rem;" (click)="customCategoryClicked(); editFormCheck();" [disabled]="!formEditable" [checked]="isCustomCategory">Custom</mat-checkbox>
+     <mat-checkbox style="margin-left: 2rem;" (click)="editFormCheck();" [disabled]="!formEditable" [checked]="isCustomCategory" (change)="customCategoryClicked($event)">Custom</mat-checkbox>
      <mat-form-field appearance="outline">
          <mat-select id="category" *ngIf="!isCustomCategory" formControlName="category" (click)="editFormCheck()">
              <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
@@ -15,6 +16,7 @@
          <input matInput *ngIf="isCustomCategory" type="text" id="category" placeholder="Custom Category Text" (click)="editFormCheck()" formControlName="category">
          <mat-error *ngIf="category.hasError('required')">Custom Category is required</mat-error>
          <mat-error *ngIf="category.hasError('minlength')">Custom Category must have two or more characters</mat-error>
+         <mat-error *ngIf="category.hasError('maxlength')">Custom Category must have fourteen characters or shorter</mat-error>
      </mat-form-field>
      <label for="body">Body <span style="color: deeppink;">*</span></label>
      <mat-form-field class="example-full-width" appearance="outline" (click)="editFormCheck()">

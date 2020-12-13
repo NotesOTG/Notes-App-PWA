@@ -35,9 +35,9 @@ export class AddCardComponent implements OnInit {
   ) {
     this.categories = Object.values(Catergories);
     this.AddNoteForm = this.fb.group({
-      title: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(14)]),
       body: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      category: new FormControl('', [Validators.required, Validators.minLength(2)])
+      category: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(14)])
     });
   }
 
@@ -59,13 +59,13 @@ export class AddCardComponent implements OnInit {
    * The submit method for the form
    */
   public onSubmit() {
+    console.log('is custom: ', this.isCustomCategory);
     let note = new Notes(this.title.value, this.body.value, false, this.category.value, this.isCustomCategory);
     if (note.creationDate == undefined || null) {
       note.creationDate = new Date().toLocaleDateString();
     }
 
     let result = this.noteService.addNote(note);
-
     if (result) {
       this.snackbar.open('Your note was saved', 'Close', {duration: 1000 * 5});
       this.noteService.stateSubject.next(StateTypes.DEFAULT);
@@ -76,7 +76,7 @@ export class AddCardComponent implements OnInit {
 
   public actionButton(event: boolean): void {
     if (event) {
-      if (this.AddNoteForm.touched && this.AddNoteForm.errors !== null) {
+      if (this.AddNoteForm.touched && this.AddNoteForm.valid) {
         this.onSubmit();
       }
       this.AddNoteForm.markAllAsTouched();
