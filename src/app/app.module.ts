@@ -31,6 +31,7 @@ import { NoteCardComponent } from './modules/note-card/note-card.component';
 import { ViewCardComponent } from './modules/note-card/view-card/view-card.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { FocusDirective } from './core/directives/focus.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MatListModule } from '@angular/material/list';
     NoteCardComponent,
     NotePopCardComponent,
     DeleteCardComponent,
+    FocusDirective,
   ],
   imports: [
     BrowserModule,

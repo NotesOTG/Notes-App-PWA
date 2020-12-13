@@ -1,7 +1,7 @@
 <app-note-pop-card title="Delete Note">
     <p class="message">Are you sure you want to delete {{note.title}}?</p>
     <mat-card-actions class="actions">
-        <button #cancelButton mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="accent" (click)="cancel()" appFocus>Cancel</button>
         <button mat-button color="warn" (click)="remove()">Delete</button>
     </mat-card-actions>
 </app-note-pop-card>

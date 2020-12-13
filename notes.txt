@@ -10,8 +10,8 @@ search so we can search the NOTES
 
 
 ADD DIRECTIVE TO AUTOFOCUS DELETE BUTTON
-ADD MAX LENGTHS TO title, and custom category
+ADD MAX LENGTHS TO title, and custom category * done
 
-When we are on /notes show a second navbar for the actions on desktop
-mobile top right of primary navbar
-refactor action buttons(for mobile)
+When we are on /notes show a second navbar for the actions on desktop * done
+mobile top right of primary navbar * done
+refactor action buttons(for mobile) * partial (temporary fix added show-buttons input)
