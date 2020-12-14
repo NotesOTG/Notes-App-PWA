@@ -41,10 +41,11 @@ export class ToolbarComponent implements OnInit {
 
   public createAndNavigateNotes() {
     if (this.router.url !== '/notes') {
-      console.log("we're not at notes");
       this.router.navigateByUrl('/notes');
     }
-    this.noteService.stateSubject.next(StateTypes.CREATE);
+    setTimeout(() => {
+      this.noteService.stateSubject.next(StateTypes.CREATE);
+    }, 50);
   }
 
   public get notesActionBar() {

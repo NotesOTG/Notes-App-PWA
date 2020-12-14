@@ -1,10 +1,33 @@
 @import "light-theme.scss";
 @import "dark-theme.scss";
+@import "colors.scss";
+@import "mixins.scss";
+
+@mixin theme-color-grabber($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  --primary-color: #{mat-color($primary)};
+  --primary-color-alpha: #{hexToRGBString(mat-color($primary))};
+
+  --accent-color: #{mat-color($accent)};
+  --accent-color-alpha: #{hexToRGBString(mat-color($accent))};
+
+  --warn-color: #{mat-color($warn)};
+  --warn-color-alpha: #{hexToRGBString(mat-color($warn))};
+
+  --border-color: rgba(#{hexToRGBString(mat-color($primary))}, 0.9);
+}
 
 .light-theme {
+  @include theme-color-grabber($candy-app-theme);
   // @include angular-material-color($candy-app-theme);
+  // --border-color: rgb(0, 0, 255);
 }
 
 .dark-theme {
+  @include theme-color-grabber($dark-theme);
   @include angular-material-color($dark-theme);
+  // --border-color: rgb(128, 0, 128);
 }

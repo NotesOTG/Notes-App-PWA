@@ -9,7 +9,7 @@ categories to classify the NOTES
 search so we can search the NOTES
 
 
-ADD DIRECTIVE TO AUTOFOCUS DELETE BUTTON
+ADD DIRECTIVE TO AUTOFOCUS Cancel BUTTON on deletion * done
 ADD MAX LENGTHS TO title, and custom category * done
 
 When we are on /notes show a second navbar for the actions on desktop * done

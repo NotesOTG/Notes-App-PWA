@@ -51,6 +51,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .form-shadow {
-  border: 4px purple solid;
+  border: 4px var(--border-color) solid;
   border-width: thin;
 }

@@ -1,0 +1,3 @@
+@function hexToRGBString($hexColor) {
+    @return "#{round(red($hexColor))},#{round(green($hexColor))},#{round(blue($hexColor))}";
+}
