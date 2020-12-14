@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { ApplicationRef, APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { FocusDirective } from './core/directives/focus.directive';
 import { InternetStatusService } from './core/services/online/internet-status.service';
+import { CheckForUpdateService } from './core/services/online/check-for-update.service';
 
 @NgModule({
   declarations: [
@@ -70,8 +71,11 @@ import { InternetStatusService } from './core/services/online/internet-status.se
   providers: [
     ThemeService,
     StorageService,
+    InternetStatusService,
+    CheckForUpdateService,
     {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
-    {provide: APP_INITIALIZER, useFactory: internetStatusFactory, multi: true},
+    {provide: APP_INITIALIZER, useFactory: PWAFactory, deps:[InternetStatusService, CheckForUpdateService], multi: true},
+    //{provide: APP_INITIALIZER, useFactory: udpateFactory, deps:[CheckForUpdateService], multi: true},
   ],
   bootstrap: [AppComponent]
 })
@@ -81,6 +85,9 @@ export function themeFactory(themeService: ThemeService) {
   return () => themeService.setThemeOnStart();
 }
 
-export function internetStatusFactory(internetStatus: InternetStatusService) {
-  return () => internetStatus.InitService();
+export function PWAFactory(internetStatus: InternetStatusService, updates: CheckForUpdateService) {
+  return () => {
+    internetStatus.initService();
+    updates.initService();
+  };
 }

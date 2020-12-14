@@ -1,31 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InternetStatusService {
 
+  /**
+   * Creation and assigning of the online subject object
+   */
   private _onlineSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
   }
 
-  public InitService() {
-    console.log('starting service');
+  /**
+   * Waits 45 seconds before getting current internet connection
+   * Starts the listening for internet connection results
+   */
+  public initService() {
     setTimeout(() => {
-      console.log("we're setting up to listen");
+      this._onlineSubject.next(window.navigator.onLine);
       window.addEventListener('online', () => {
-        console.log('went online!');
+        this._onlineSubject.next(true);
       });
-  
       window.addEventListener('offline', () => {
-        console.log('went offline!');
+        this._onlineSubject.next(false);
       });
     }, 40 * 1000);
   }
 
-  private setupEvents() {
-
+  /**
+   * The online subject object
+   */
+  public get onlineSubject(): Subject<boolean> {
+    return this._onlineSubject;
   }
+
 }
