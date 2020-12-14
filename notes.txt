@@ -8,6 +8,7 @@ date of the NOTES(saving adds new date)
 categories to classify the NOTES
 search so we can search the NOTES
 
+Project wide colours based on themes * done
 
 ADD DIRECTIVE TO AUTOFOCUS Cancel BUTTON on deletion * done
 ADD MAX LENGTHS TO title, and custom category * done
@@ -15,3 +16,6 @@ ADD MAX LENGTHS TO title, and custom category * done
 When we are on /notes show a second navbar for the actions on desktop * done
 mobile top right of primary navbar * done
 refactor action buttons(for mobile) * partial (temporary fix added show-buttons input)
+
+start on PWA for install screen, and stuff appinit
+Network service, that tells us if the user has internet or not

@@ -32,6 +32,7 @@ import { ViewCardComponent } from './modules/note-card/view-card/view-card.compo
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { FocusDirective } from './core/directives/focus.directive';
+import { InternetStatusService } from './core/services/online/internet-status.service';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { FocusDirective } from './core/directives/focus.directive';
     ThemeService,
     StorageService,
     {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
+    {provide: APP_INITIALIZER, useFactory: internetStatusFactory, multi: true},
   ],
   bootstrap: [AppComponent]
 })
@@ -77,4 +79,8 @@ export class AppModule { }
 
 export function themeFactory(themeService: ThemeService) {
   return () => themeService.setThemeOnStart();
+}
+
+export function internetStatusFactory(internetStatus: InternetStatusService) {
+  return () => internetStatus.InitService();
 }
