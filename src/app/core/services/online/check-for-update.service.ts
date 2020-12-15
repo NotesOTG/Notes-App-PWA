@@ -16,15 +16,14 @@ export class CheckForUpdateService {
   private appRef: ApplicationRef;
   private updates: SwUpdate;
   private popupService: PopupService;
-  private snackbar: MatSnackBar;
 
   private isOnline = false;
+  private applyUpdate = true;
 
   constructor(private injector: Injector) {
     this.internetStatus = this.injector.get(InternetStatusService);
     this.updates = this.injector.get(SwUpdate);
     this.popupService = this.injector.get(PopupService);
-    this.snackbar = this.injector.get(MatSnackBar);
   }
 
   public initService() {
@@ -51,7 +50,6 @@ export class CheckForUpdateService {
         PopupType.INSTALL
       )).subscribe((success: boolean) => {
         if (success) { 
-          console.log('starting update');
           this.updates.activateUpdate(); 
         }
       });
@@ -60,9 +58,7 @@ export class CheckForUpdateService {
 
   private startUpdateAppliedChecker(): void {
     this.updates.activated.subscribe(() => {
-      console.log('update got applied');
       document.location.reload();
-      this.snackbar.open('App has been updated', 'close', {duration: 1000 * 5});
     });
   }
 
