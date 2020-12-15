@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
+import { Popup, PopupType } from 'src/app/shared/models/popup';
 import { StateTypes } from 'src/app/shared/models/state-types';
 import { NoteService } from '../../services/offline/note.service';
+import { PopupService } from '../../services/offline/popup.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
 
 @Component({
@@ -20,7 +22,8 @@ export class ToolbarComponent implements OnInit {
   constructor(
     public themeService: ThemeService, 
     public noteService: NoteService,
-    private router: Router
+    private router: Router,
+    public popup: PopupService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +49,15 @@ export class ToolbarComponent implements OnInit {
     setTimeout(() => {
       this.noteService.stateSubject.next(StateTypes.CREATE);
     }, 50);
+  }
+
+  public showInstall() {
+    this.popup.showPopup(new Popup(
+      'Install Notes App', 
+      'Would you like to install the notes app?',
+      PopupType.INSTALL
+      )).subscribe((success: boolean) => {
+    });
   }
 
   public get notesActionBar() {

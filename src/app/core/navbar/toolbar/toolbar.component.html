@@ -29,8 +29,9 @@
     <mat-sidenav-container autosize fxFlex="100">
         <mat-sidenav #drawer>
           <mat-nav-list class="nav-list">
-              <a mat-list-item routerLink="/"><mat-icon id="nav-icon">home</mat-icon>Home</a>
-              <a mat-list-item routerLink="/notes"><mat-icon id="nav-icon">notes</mat-icon>Notes</a>
+              <a mat-list-item routerLink="/" (click)="drawer.close()"><mat-icon id="nav-icon">home</mat-icon>Home</a>
+              <a mat-list-item routerLink="/notes" (click)="drawer.close()"><mat-icon id="nav-icon">notes</mat-icon>Notes</a>
+              <a mat-list-item (click)="drawer.close(); showInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
           </mat-nav-list>
         </mat-sidenav>
       

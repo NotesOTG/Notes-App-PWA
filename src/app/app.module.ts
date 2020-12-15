@@ -34,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
 import { FocusDirective } from './core/directives/focus.directive';
 import { InternetStatusService } from './core/services/online/internet-status.service';
 import { CheckForUpdateService } from './core/services/online/check-for-update.service';
+import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,11 +48,12 @@ import { CheckForUpdateService } from './core/services/online/check-for-update.s
     NotePopCardComponent,
     DeleteCardComponent,
     FocusDirective,
+    PopupDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' }),
     BrowserAnimationsModule,
     MatIconModule,
     MatToolbarModule,

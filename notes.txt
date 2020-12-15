@@ -19,3 +19,6 @@ refactor action buttons(for mobile) * partial (temporary fix added show-buttons 
 
 start on PWA for install screen, and stuff appinit
 Network service, that tells us if the user has internet or not
+
+
+implement never again on popup
