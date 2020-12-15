@@ -1,24 +1,45 @@
 import { ApplicationRef, Injectable, Injector } from '@angular/core';
-import { SwUpdate, UpdateActivatedEvent, UpdateAvailableEvent } from '@angular/service-worker';
+import { SwUpdate } from '@angular/service-worker';
 import { InternetStatusService } from './internet-status.service';
-import { concatAll, concatMap, first, map, switchMap, switchMapTo, take } from 'rxjs/operators';
-import { interval, of, concat, merge } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { interval, concat } from 'rxjs';
 import { PopupService } from '../offline/popup.service';
 import { Popup, PopupType } from 'src/app/shared/models/popup';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckForUpdateService {
 
+  /**
+   * The interstatus service object
+   */
   private internetStatus: InternetStatusService;
+
+  /**
+   * The application refrence object
+   */
   private appRef: ApplicationRef;
+
+  /**
+   * The Service Worker Update object
+   */
   private updates: SwUpdate;
+
+  /**
+   * The popup service so we can get user input
+   */
   private popupService: PopupService;
 
+  /**
+   * is the user online
+   */
   private isOnline = false;
-  private applyUpdate = true;
+
+  /**
+   * Tells us if the user doesn't want to apply the update
+   */
+  private silentUpdate = false;
 
   constructor(private injector: Injector) {
     this.internetStatus = this.injector.get(InternetStatusService);
@@ -26,6 +47,9 @@ export class CheckForUpdateService {
     this.popupService = this.injector.get(PopupService);
   }
 
+  /**
+   * Initializes the service and starts the checkers
+   */
   public initService() {
     this.appRef = this.injector.get(ApplicationRef);
     
@@ -36,14 +60,20 @@ export class CheckForUpdateService {
     this.startUpdateChecker();
     this.startUpdateAvailableChecker();
     this.startUpdateAppliedChecker();
-    console.log('starting the update listeners');
-    //create dummy interval that will check for updates here and there. Cant with setInterval running constantly.....
-    //could use currentTimeMillis on every check when it returns true
-
   }
 
+  /**
+   * Checks for available updates
+   * And then prompts the user to install update
+   * Or silently updates
+   */
   private startUpdateAvailableChecker(): void {
     this.updates.available.subscribe(() => {
+      if (this.silentUpdate) {
+        this.updates.activateUpdate();
+        return;
+      }
+
       this.popupService.showPopup(new Popup(
         'Update Available', 
         "There's an update available. Would you like to install it now?", 
@@ -51,27 +81,33 @@ export class CheckForUpdateService {
       )).subscribe((success: boolean) => {
         if (success) { 
           this.updates.activateUpdate(); 
+        } else {
+          this.silentUpdate = true;
+          this.updates.activateUpdate(); 
         }
       });
     });
   }
 
+  /**
+   * Starts listening for if the update was installed
+   * Reloads the document if installed
+   * If silent update is on. Doesn't reload the document
+   */
   private startUpdateAppliedChecker(): void {
     this.updates.activated.subscribe(() => {
-      document.location.reload();
+      if (!this.silentUpdate) { document.location.reload(); }
     });
   }
 
+  /**
+   * Checks for updates periodically(every 5 minutes)
+   */
   private startUpdateChecker(): void {
     const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
-    let updateCheckTimer$ = interval(1000 * 30);
+    let updateCheckTimer$ = interval(1000 * 10);
     concat(appIsStable$, updateCheckTimer$).subscribe(() => {
-      if (this.isOnline && this.updates.isEnabled) {
-          console.log('service worker is installed and checking for update');
-          this.updates.checkForUpdate();
-        } else {
-          console.log('not online so cant check');
-      }
+      if (this.isOnline && this.updates.isEnabled) { this.updates.checkForUpdate(); }
     });
   }
 }

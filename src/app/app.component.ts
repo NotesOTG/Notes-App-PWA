@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log('is dev mode? ', isDevMode());
+    
   }
   
 }

@@ -28,7 +28,8 @@ export class Popup {
 export enum PopupType {
     SAVE = 'Save',
     CANCEL = 'Cancel',
-    INSTALL = 'Install'
+    INSTALL = 'Install',
+    ALLOW = 'Allow'
 }
 
 export interface IPopup {
