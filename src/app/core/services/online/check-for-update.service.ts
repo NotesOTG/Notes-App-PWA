@@ -79,7 +79,7 @@ export class CheckForUpdateService {
         "There's an update available. Would you like to install it now?", 
         PopupType.INSTALL
       )).subscribe((success: boolean) => {
-        if (success) { 
+        if (success) {
           this.updates.activateUpdate(); 
         } else {
           this.silentUpdate = true;
@@ -105,7 +105,7 @@ export class CheckForUpdateService {
    */
   private startUpdateChecker(): void {
     const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
-    let updateCheckTimer$ = interval(1000 * 10);
+    let updateCheckTimer$ = interval(1000 * 60 * 5);
     concat(appIsStable$, updateCheckTimer$).subscribe(() => {
       if (this.isOnline && this.updates.isEnabled) { this.updates.checkForUpdate(); }
     });

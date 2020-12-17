@@ -4,7 +4,7 @@
         <button fxHide fxShow.lt-md mat-icon-button (click)="drawer.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>Note App</span>
+        <span>Notes App</span>
         <button mat-button routerLink="/" fxShow fxHide.lt-md>Home</button>
         <button mat-button routerLink="/notes" fxShow fxHide.lt-md>Notes</button>
         <span class="example-spacer"></span>
@@ -12,10 +12,6 @@
         <button mat-icon-button fxHide fxShow.lt-md 
           (click)="createAndNavigateNotes()">
           <mat-icon>note_add</mat-icon>
-        </button>
-
-        <button mat-button (click)="handle.clearCache()">
-          Clear cache attempt
         </button>
 
         <button mat-icon-button [matMenuTriggerFor]="menu">

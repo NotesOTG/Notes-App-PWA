@@ -1,7 +1,5 @@
 import { Component, isDevMode, OnInit } from '@angular/core';
-import { CheckForUpdateService } from './core/services/online/check-for-update.service';
-import { InternetStatusService } from './core/services/online/internet-status.service';
-import { Catergories } from './shared/models/categories';
+import { HandleCacheService } from './core/services/offline/handle-cache.service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +10,11 @@ export class AppComponent implements OnInit {
 
   title = 'notes-app-pwa';
 
-  constructor() {}
+  constructor(private handleCache: HandleCacheService) {}
 
   ngOnInit(): void {
     //console.log('is dev mode? ', isDevMode());
+    this.handleCache.initService();
   }
   
 }

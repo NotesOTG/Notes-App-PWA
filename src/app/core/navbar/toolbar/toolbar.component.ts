@@ -5,7 +5,6 @@ import { StateTypes } from 'src/app/shared/models/state-types';
 import { NoteService } from '../../services/offline/note.service';
 import { PopupService } from '../../services/offline/popup.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
-import { HandleUnrecoverableStateService } from '../../services/online/handle-unrecoverable-state.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -24,8 +23,7 @@ export class ToolbarComponent implements OnInit {
     public themeService: ThemeService, 
     public noteService: NoteService,
     private router: Router,
-    public popup: PopupService,
-    public handle: HandleUnrecoverableStateService
+    public popup: PopupService
   ) { }
 
   ngOnInit(): void {
