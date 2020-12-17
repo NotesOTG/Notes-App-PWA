@@ -25,17 +25,23 @@ export class HandleUnrecoverableStateService {
 
   initService() {
     this.updates.unrecoverable.subscribe(event => {
-      this.popupService.showPopup(new Popup(
-        'Internal Error',
-        'Allow me to take care of this? If it doesnt work please manually refresh. You wont lose any data',
-        PopupType.ALLOW
-      )).subscribe((success: boolean) => {
-        if (success) { window.location.reload(); }
-        //take care of clearing all ngsw from cache
-        //window.caches.has('ngsw*');
-        //window.caches.delete('ngsw*');
-      });
+      window.alert("App has encountered a fatal flaw please refresh, You wont lose any data");
     });
+  }
+
+  public clearCache() {
+      window.caches.keys().then(keyList => {
+        if (keyList === (null || undefined)) {
+          
+        }
+        
+        for (let i = 0; i < keyList.length; i++) {
+          window.caches.delete(keyList[i]);
+        }
+        window.location.reload();
+      }).then(_ => {
+        window.location.reload();
+      });
   }
 
 }
