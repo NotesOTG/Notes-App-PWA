@@ -30,11 +30,10 @@ export class HandleUnrecoverableStateService {
         'Allow me to take care of this? If it doesnt work please manually refresh. You wont lose any data',
         PopupType.ALLOW
       )).subscribe((success: boolean) => {
-        do {
-          console.log('see one!');
-          // window.caches.delete('ngsw*');
-          // window.location.reload();
-        } while (window.caches.has('ngsw*'));
+        if (success) { window.location.reload(); }
+        //take care of clearing all ngsw from cache
+        //window.caches.has('ngsw*');
+        //window.caches.delete('ngsw*');
       });
     });
   }
