@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { Popup, PopupType } from 'src/app/shared/models/popup';
 import { StateTypes } from 'src/app/shared/models/state-types';
+import { InstallService } from '../../services/offline/install.service';
 import { NoteService } from '../../services/offline/note.service';
 import { PopupService } from '../../services/offline/popup.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
@@ -23,7 +24,8 @@ export class ToolbarComponent implements OnInit {
     public themeService: ThemeService, 
     public noteService: NoteService,
     private router: Router,
-    public popup: PopupService
+    public popup: PopupService,
+    public installService: InstallService
   ) { }
 
   ngOnInit(): void {
@@ -51,12 +53,15 @@ export class ToolbarComponent implements OnInit {
     }, 50);
   }
 
-  public showInstall() {
+  public promptInstall() {
     this.popup.showPopup(new Popup(
       'Install Notes App', 
-      'Would you like to install the notes app?',
+      'You will have full access to creating, viewing, editing, and deleting notes on the go. Even without an internet connection.',
       PopupType.INSTALL
       )).subscribe((success: boolean) => {
+        if (success) {
+          this.installService.startInstall();
+        }
     });
   }
 

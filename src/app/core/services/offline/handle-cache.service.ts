@@ -20,6 +20,8 @@ export class HandleCacheService {
       this.deleteCurrentKeys();
       this.getCurrentKeys();
     });
+
+    
   }
 
   /**

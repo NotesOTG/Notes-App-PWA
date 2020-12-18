@@ -14,6 +14,12 @@
           <mat-icon>note_add</mat-icon>
         </button>
 
+        <button mat-button fxHide fxShow.gt-sm
+          (click)="promptInstall();"
+          [disabled]="!installService.canInstall">
+          <mat-icon>stay_current_portrait</mat-icon> Install
+        </button>
+
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -31,7 +37,7 @@
           <mat-nav-list class="nav-list">
               <a mat-list-item routerLink="/" (click)="drawer.close()"><mat-icon id="nav-icon">home</mat-icon>Home</a>
               <a mat-list-item routerLink="/notes" (click)="drawer.close()"><mat-icon id="nav-icon">notes</mat-icon>Notes</a>
-              <a mat-list-item (click)="drawer.close(); showInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
+              <a [disabled]="!installService.canInstall" mat-list-item (click)="drawer.close(); promptInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
           </mat-nav-list>
         </mat-sidenav>
       

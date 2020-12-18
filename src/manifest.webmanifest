@@ -55,5 +55,18 @@
       "type": "image/png",
       "purpose": "maskable any"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Notes",
+      "description": "View your notes",
+      "url": "/notes",
+      "icons": [{
+        "src": "assets/icons/icon-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png",
+        "purpose": "any"
+      }]
+    }
   ]
 }
