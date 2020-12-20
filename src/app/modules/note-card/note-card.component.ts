@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
@@ -16,7 +16,11 @@ export class NoteCardComponent implements OnInit {
 
   states = StateTypes;
 
-  constructor(public noteService: NoteService, public router: Router) { }
+  constructor(
+    public noteService: NoteService, 
+    public router: Router,
+    private activatedRoute: ActivatedRoute    
+  ) { }
 
   ngOnInit(): void {
     this.noteService.stateSubject.subscribe((state: StateTypes) => {
@@ -25,6 +29,10 @@ export class NoteCardComponent implements OnInit {
         this.noteService.currentNoteId = -1;
       }
     });
+
+    if (this.activatedRoute.snapshot.queryParams.action === 'create') {
+      this.noteService.stateSubject.next(StateTypes.CREATE);
+    }
   }
 
 }

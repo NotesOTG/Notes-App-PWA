@@ -1,4 +1,4 @@
-<div #div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+<div #div fxLayout="row" fxLayoutAlign="center center" fxFlexFill class="note-container">
     <mat-card #card fxFlex.lt-md="90" fxFlex="40" class="form-group form-shadow"  style="margin-top: 5%; margin-bottom: 5%;">
         <mat-card-header>
             <mat-card-title>{{title}}</mat-card-title>
@@ -9,7 +9,9 @@
         </mat-card-content>
     </mat-card>
 </div>
-<div fxShow.lt-md fxHide class="sticky-options" *ngIf="showButtons">
-    <button color="accent" mat-raised-button (click)="isSaving(true)">Save</button>
-    <button color="primary" mat-raised-button (click)="isSaving(false)">Cancel</button>
-</div>
+<!-- <div fxShow.lt-md fxHide class="sticky-options" *ngIf="showButtons">
+     <div fxLayout="row" fxLayoutAlign="space-around center">
+        <button color="accent" mat-raised-button (click)="isSaving(true)">Save</button>
+        <button color="primary" mat-raised-button (click)="isSaving(false)">Cancel</button>
+    </div>
+</div> -->

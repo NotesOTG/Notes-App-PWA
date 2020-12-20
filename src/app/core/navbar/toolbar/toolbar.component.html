@@ -16,7 +16,7 @@
 
         <button mat-button fxHide fxShow.gt-sm
           (click)="promptInstall();"
-          [disabled]="!installService.canInstall">
+          *ngIf="installService.canInstall">
           <mat-icon>stay_current_portrait</mat-icon> Install
         </button>
 
@@ -37,12 +37,18 @@
           <mat-nav-list class="nav-list">
               <a mat-list-item routerLink="/" (click)="drawer.close()"><mat-icon id="nav-icon">home</mat-icon>Home</a>
               <a mat-list-item routerLink="/notes" (click)="drawer.close()"><mat-icon id="nav-icon">notes</mat-icon>Notes</a>
-              <a [disabled]="!installService.canInstall" mat-list-item (click)="drawer.close(); promptInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
+              <a *ngIf="installService.canInstall" mat-list-item (click)="drawer.close(); promptInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
           </mat-nav-list>
         </mat-sidenav>
       
         <mat-sidenav-content fxFlex="grow">
             <router-outlet></router-outlet>
+            <div fxShow.lt-md fxHide class="sticky-options">
+              <div fxLayout="row" fxLayoutAlign="space-around center">
+                  <button color="accent" mat-raised-button >Save</button>
+                  <button color="primary" mat-raised-button>Cancel</button>
+              </div>
+          </div>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

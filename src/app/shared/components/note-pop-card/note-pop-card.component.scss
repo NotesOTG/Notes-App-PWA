@@ -10,13 +10,22 @@ mat-card {
 }
 
 .sticky-options {
-    position: -webkit-sticky;
     position: sticky;
-    bottom: 0px;
-    width: 100%;
+    bottom: 0;
+    width: 95%;
+    margin: 0 auto;
+    z-index: 4;
 
     button {
-        border-radius: 0;
-        width: 50%;
+        border-radius: 8px;
+        width: 48%;
+    }
+}
+
+
+@media (max-height: 590px) {
+    .note-container {
+        align-items: flex-start!important;
+        height: 114%!important;
     }
 }
