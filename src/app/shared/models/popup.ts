@@ -1,12 +1,14 @@
+import { ButtonType } from "./button-types";
+
 export class Popup {
 
     private _title: string;
 
     private _body: string;
 
-    private _action: PopupType;
+    private _action: ButtonType;
 
-    constructor(title: string, body: string, action: PopupType) {
+    constructor(title: string, body: string, action: ButtonType) {
         this._title = title;
         this._body = body;
         this._action = action;
@@ -20,20 +22,13 @@ export class Popup {
         return this._body;
     }
 
-    public get action(): PopupType {
+    public get action(): ButtonType {
         return this._action;
     }
-}
-
-export enum PopupType {
-    SAVE = 'Save',
-    CANCEL = 'Cancel',
-    INSTALL = 'Install',
-    ALLOW = 'Allow'
 }
 
 export interface IPopup {
     title: string;
     body: string;
-    action: PopupType;
+    action: ButtonType;
 }

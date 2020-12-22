@@ -1,0 +1,6 @@
+<div fxShow.lt-md fxHide class="sticky-options" *ngIf="this.maButtons.showButtons">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button color="accent" mat-raised-button (click)="sendSignal(true)">{{this.maButtons.buttons[0]}}</button>
+        <button color="primary" mat-raised-button (click)="sendSignal(false)">{{this.maButtons.buttons[1]}}</button>
+    </div>
+</div>

@@ -35,6 +35,7 @@ import { FocusDirective } from './core/directives/focus.directive';
 import { InternetStatusService } from './core/services/online/internet-status.service';
 import { CheckForUpdateService } from './core/services/online/check-for-update.service';
 import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dialog.component';
+import { MobileActionButtonsComponent } from './shared/components/mobile-action-buttons/mobile-action-buttons.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dia
     DeleteCardComponent,
     FocusDirective,
     PopupDialogComponent,
+    MobileActionButtonsComponent,
   ],
   imports: [
     BrowserModule,

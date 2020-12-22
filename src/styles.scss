@@ -54,3 +54,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 4px var(--border-color) solid;
   border-width: thin;
 }
+mat-card-content p:last-child {
+  margin-bottom: 0!important;
+}

@@ -1,4 +1,4 @@
-<app-note-pop-card title="New Note" (isSaved)="actionButton($event)" [showButtons]="true">
+<app-note-pop-card title="New Note">
   <form [formGroup]="AddNoteForm" (ngSubmit)="onSubmit()" >
     <label for="title">Title <span style="color: deeppink;">*</span></label>
      <mat-form-field appearance="outline">

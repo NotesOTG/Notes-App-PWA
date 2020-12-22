@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { Popup, PopupType } from 'src/app/shared/models/popup';
+import { ButtonType } from 'src/app/shared/models/button-types';
+import { Popup } from 'src/app/shared/models/popup';
 import { StateTypes } from 'src/app/shared/models/state-types';
 import { InstallService } from '../../services/offline/install.service';
 import { NoteService } from '../../services/offline/note.service';
@@ -57,7 +58,7 @@ export class ToolbarComponent implements OnInit {
     this.popup.showPopup(new Popup(
       'Install Notes App', 
       'You will have full access to creating, viewing, editing, and deleting notes on the go. Even without an internet connection.',
-      PopupType.INSTALL
+      ButtonType.INSTALL
       )).subscribe((success: boolean) => {
         if (success) {
           this.installService.startInstall();

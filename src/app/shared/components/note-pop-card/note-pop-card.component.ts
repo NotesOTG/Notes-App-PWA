@@ -14,10 +14,6 @@ export class NotePopCardComponent implements OnInit, AfterViewInit {
    */
   @Input() public title: string = 'Placeholder title';
 
-  @Input() public showButtons: boolean = false;
-
-  @Output() public isSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   /**
    * The viewchild for a html element, finds the ElementRef
    */
@@ -66,10 +62,6 @@ export class NotePopCardComponent implements OnInit, AfterViewInit {
       }
       this.clicks = 0;
     }, 50);
-  }
-
-  public isSaving(save: boolean) {
-    this.isSaved.emit(save);
   }
 
 }

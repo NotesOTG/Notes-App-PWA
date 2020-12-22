@@ -4,7 +4,8 @@ import { InternetStatusService } from './internet-status.service';
 import { first } from 'rxjs/operators';
 import { interval, concat } from 'rxjs';
 import { PopupService } from '../offline/popup.service';
-import { Popup, PopupType } from 'src/app/shared/models/popup';
+import { Popup } from 'src/app/shared/models/popup';
+import { ButtonType } from 'src/app/shared/models/button-types';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +78,7 @@ export class CheckForUpdateService {
       this.popupService.showPopup(new Popup(
         'Update Available', 
         "There's an update available. Would you like to install it now?", 
-        PopupType.INSTALL
+        ButtonType.INSTALL
       )).subscribe((success: boolean) => {
         if (success) {
           this.updates.activateUpdate(); 

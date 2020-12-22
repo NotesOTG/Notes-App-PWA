@@ -3,7 +3,9 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MobileActionButtonsService } from 'src/app/core/services/offline/mobile-action-buttons.service';
 import { NoteService } from 'src/app/core/services/offline/note.service';
+import { ButtonType } from 'src/app/shared/models/button-types';
 import { Catergories } from 'src/app/shared/models/categories';
 import { Notes } from 'src/app/shared/models/notes';
 import { StateTypes } from 'src/app/shared/models/state-types';
@@ -34,13 +36,12 @@ export class EditCardComponent implements OnInit {
 
   public formEditable: boolean = false;
 
-
-
   constructor(
     public noteService: NoteService, 
     public router: Router, 
     private fb: FormBuilder,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private maButtonsService: MobileActionButtonsService
   ) {
     this.categories = Object.values(Catergories);
   }
@@ -53,11 +54,14 @@ export class EditCardComponent implements OnInit {
     }
 
     this.isCustomCategory = this.note.customCategory;
-    console.log('custom?', this.isCustomCategory);
     this.editNoteForm = this.fb.group({
       title: new FormControl({value: this.note.title, disabled: true}, [Validators.required, Validators.minLength(3), Validators.maxLength(14)]),
       body: new FormControl({value: this.note.body, disabled: true}, [Validators.required, Validators.minLength(3)]),
       category: new FormControl({value: this.note.category, disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(14)])
+    });
+
+    this.maButtonsService.addButtons(ButtonType.SAVE).subscribe((isSuccess: boolean) => {
+      this.actionButton(isSuccess);
     });
 
   }
@@ -107,12 +111,13 @@ export class EditCardComponent implements OnInit {
     if (result) {
       this.snackbar.open('Your note has been saved', 'close', {duration: 1000 * 5});
       this.noteService.stateSubject.next(StateTypes.DEFAULT);
+      this.maButtonsService.removeButtons();
     } else {
       this.snackbar.open("Your note couldn't be saved", 'close', {duration: 1000 * 5});
     }
   }
 
-  public actionButton(event: boolean): void {
+  private actionButton(event: boolean): void {
     if (event) {
       if (this.editNoteForm.touched && this.editNoteForm.valid) {
         this.onSubmit();

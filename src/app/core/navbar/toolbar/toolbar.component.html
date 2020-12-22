@@ -43,12 +43,7 @@
       
         <mat-sidenav-content fxFlex="grow">
             <router-outlet></router-outlet>
-            <div fxShow.lt-md fxHide class="sticky-options">
-              <div fxLayout="row" fxLayoutAlign="space-around center">
-                  <button color="accent" mat-raised-button >Save</button>
-                  <button color="primary" mat-raised-button>Cancel</button>
-              </div>
-          </div>
+            <app-mobile-action-buttons></app-mobile-action-buttons>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
