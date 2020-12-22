@@ -1,6 +1,4 @@
 .container {
-    //background-image: url("/assets/icons/icon-72x72.png");
-    background-image: url("/assets/images/background1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -13,8 +11,6 @@
 
 .container div {
     background-color: rgba(41, 33, 33, 0.8);
-    // margin-left: 2%;
-    // margin-bottom: 5%;
     text-align: center;
     color: whitesmoke;
     padding: 16px;
@@ -60,4 +56,19 @@
             line-height: 32px;
         }
     }
+}
+
+@media only screen and (max-width: 1280px) {
+    .container { background-image: url("/assets/images/background-1280x720.jpg"); }
+}
+
+@media only screen and (max-width: 1920px) and (min-width: 1281px) {
+    .container { 
+        background-image: url("/assets/images/background-1920x1080.jpg");
+        background-position: 40% 40%; 
+    }
+}
+
+@media only screen and (min-width: 1921px) {
+    .container { background-image: url("/assets/images/background-default.jpg"); }
 }

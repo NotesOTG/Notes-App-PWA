@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { MobileActionButtonsService } from 'src/app/core/services/offline/mobile-action-buttons.service';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
@@ -19,12 +20,14 @@ export class NoteCardComponent implements OnInit {
   constructor(
     public noteService: NoteService, 
     public router: Router,
-    private activatedRoute: ActivatedRoute    
+    private activatedRoute: ActivatedRoute,
+    private maService: MobileActionButtonsService
   ) { }
 
   ngOnInit(): void {
     this.noteService.stateSubject.subscribe((state: StateTypes) => {
       this.currentState = state;
+      this.maService.removeButtons();
       if (state === StateTypes.DEFAULT || state === StateTypes.CREATE) {
         this.noteService.currentNoteId = -1;
       }
