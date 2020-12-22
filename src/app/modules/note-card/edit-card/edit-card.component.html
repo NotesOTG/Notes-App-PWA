@@ -1,4 +1,4 @@
-<app-note-pop-card title="View Note">
+<app-note-pop-card title="{{formEditable ? 'Edit' : 'View'}} Note">
   <form [formGroup]="editNoteForm" (ngSubmit)="onSubmit()" >
     <label for="title">Title <span style="color: deeppink;">*</span></label>
      <mat-form-field appearance="outline" (click)="editFormCheck()">

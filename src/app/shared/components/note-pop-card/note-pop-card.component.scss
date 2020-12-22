@@ -29,3 +29,9 @@ mat-card {
         height: 114%!important;
     }
 }
+
+@media (max-height: 667px) and (min-height: 591px) {
+    .note-container {
+        align-items: flex-start!important;
+    }
+}
