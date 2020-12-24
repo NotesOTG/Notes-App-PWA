@@ -1,6 +1,6 @@
 {
-  "name": "notes-app-pwa",
-  "short_name": "notes-app-pwa",
+  "name": "Notes On The Go",
+  "short_name": "NotesOTG",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
@@ -62,8 +62,8 @@
       "description": "View your notes",
       "url": "/notes",
       "icons": [{
-        "src": "assets/icons/icon-96x96.png",
-        "sizes": "96x96",
+        "src": "assets/actions/view.png",
+        "sizes": "192x192",
         "type": "image/png",
         "purpose": "any"
       }]
@@ -73,8 +73,8 @@
       "description": "Create a note",
       "url": "/notes?action=create",
       "icons": [{
-        "src": "assets/icons/icon-96x96.png",
-        "sizes": "96x96",
+        "src": "assets/actions/create.png",
+        "sizes": "192x192",
         "type": "image/png",
         "purpose": "any"
       }]

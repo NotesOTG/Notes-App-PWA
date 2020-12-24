@@ -1,3 +1,20 @@
-@function hexToRGBString($hexColor) {
+@mixin theme-color-grabber($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+  
+    --primary-color: #{mat-color($primary)};
+    --primary-color-alpha: #{hexToRGBString(mat-color($primary))};
+  
+    --accent-color: #{mat-color($accent)};
+    --accent-color-alpha: #{hexToRGBString(mat-color($accent))};
+  
+    --warn-color: #{mat-color($warn)};
+    --warn-color-alpha: #{hexToRGBString(mat-color($warn))};
+  
+    --border-color: rgba(#{hexToRGBString(mat-color($primary))}, 0.9);
+  }
+  
+  @function hexToRGBString($hexColor) {
     @return "#{round(red($hexColor))},#{round(green($hexColor))},#{round(blue($hexColor))}";
-}
+  }
