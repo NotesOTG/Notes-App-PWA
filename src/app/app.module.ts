@@ -36,6 +36,7 @@ import { InternetStatusService } from './core/services/online/internet-status.se
 import { CheckForUpdateService } from './core/services/online/check-for-update.service';
 import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dialog.component';
 import { MobileActionButtonsComponent } from './shared/components/mobile-action-buttons/mobile-action-buttons.component';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { MobileActionButtonsComponent } from './shared/components/mobile-action-
     MatDialogModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatListModule
+    MatListModule,
+    SocialLoginModule
   ],
   providers: [
     ThemeService,
@@ -79,7 +81,7 @@ import { MobileActionButtonsComponent } from './shared/components/mobile-action-
     CheckForUpdateService,
     {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
     {provide: APP_INITIALIZER, useFactory: PWAFactory, deps:[InternetStatusService, CheckForUpdateService], multi: true},
-    //{provide: APP_INITIALIZER, useFactory: udpateFactory, deps:[CheckForUpdateService], multi: true},
+    { provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
   ],
   bootstrap: [AppComponent]
 })
@@ -94,4 +96,19 @@ export function PWAFactory(internetStatus: InternetStatusService, updates: Check
     internetStatus.initService();
     updates.initService();
   };
+}
+
+export function socialConfig() {
+  return {
+    autoLogin: false,
+    providers: [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider(
+          '421303202733-m5l1jvf5skjvpkpf9jm0d8omsj3buf4p.apps.googleusercontent.com',
+          'profile email'
+        )
+      }
+    ]
+  } as SocialAuthServiceConfig;
 }
