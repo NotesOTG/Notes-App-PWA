@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { MobileActionButtonsService } from 'src/app/core/services/offline/mobile-action-buttons.service';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
@@ -25,6 +26,7 @@ export class NoteCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    document.title = SiteConfigurations.TTILE + 'Notes';
     this.noteService.stateSubject.subscribe((state: StateTypes) => {
       this.currentState = state;
       this.maService.removeButtons();

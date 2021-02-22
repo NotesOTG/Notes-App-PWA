@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/shared/models/user';
 import { JwtHandler } from '../../handlers/jwt-handler';
 import { UserHandler } from '../../handlers/user-handler';
 import { StorageService } from '../offline/storage.service';

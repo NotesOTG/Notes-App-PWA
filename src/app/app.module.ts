@@ -72,7 +72,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     MatSnackBarModule,
     MatMenuModule,
     MatListModule,
-    SocialLoginModule
+    //SocialLoginModule
   ],
   providers: [
     ThemeService,
@@ -81,7 +81,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     CheckForUpdateService,
     {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
     {provide: APP_INITIALIZER, useFactory: PWAFactory, deps:[InternetStatusService, CheckForUpdateService], multi: true},
-    { provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
+    //{ provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
   ],
   bootstrap: [AppComponent]
 })
@@ -98,17 +98,17 @@ export function PWAFactory(internetStatus: InternetStatusService, updates: Check
   };
 }
 
-export function socialConfig() {
-  return {
-    autoLogin: false,
-    providers: [
-      {
-        id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider(
-          '421303202733-m5l1jvf5skjvpkpf9jm0d8omsj3buf4p.apps.googleusercontent.com',
-          'profile email'
-        )
-      }
-    ]
-  } as SocialAuthServiceConfig;
-}
+// export function socialConfig() {
+//   return {
+//     autoLogin: false,
+//     providers: [
+//       {
+//         id: GoogleLoginProvider.PROVIDER_ID,
+//         provider: new GoogleLoginProvider(
+//           '421303202733-m5l1jvf5skjvpkpf9jm0d8omsj3buf4p.apps.googleusercontent.com',
+//           'profile email'
+//         )
+//       }
+//     ]
+//   } as SocialAuthServiceConfig;
+// }

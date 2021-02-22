@@ -2,7 +2,7 @@ import { isDevMode } from "@angular/core";
 
 export class ServerConfigurations {
 
-    public static PRODUCTION: boolean = isDevMode();
+    public static PRODUCTION: boolean = !isDevMode();
 
     public static readonly PREFIX: string = 'api/';
 

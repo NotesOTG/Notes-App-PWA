@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
 
   title = 'NotesOTG';
 
-  constructor(private handleCache: HandleCacheService,
-    private auth: AuthenticationService) {}
+  // private auth: AuthenticationService
+  constructor(private handleCache: HandleCacheService) {}
 
   ngOnInit(): void {
     this.handleCache.initService();

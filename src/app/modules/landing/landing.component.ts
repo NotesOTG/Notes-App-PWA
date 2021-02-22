@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { NoteService } from 'src/app/core/services/offline/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
@@ -11,16 +13,17 @@ import { StateTypes } from 'src/app/shared/models/state-types';
 })
 export class LandingComponent implements OnInit {
 
+  // private authService: SocialAuthService
   constructor(    
     public noteService: NoteService,
-    private router: Router,
-    private authService: SocialAuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user: SocialUser) => {
-      console.log('user: ', user);
-    });
+    document.title = SiteConfigurations.TTILE + 'Landing';
+    // this.authService.authState.subscribe((user: SocialUser) => {
+    //   console.log('user: ', user);
+    // });
   }
   
   public createAndNavigateNotes() {
@@ -32,16 +35,16 @@ export class LandingComponent implements OnInit {
     }, 50);
   }
 
-  loginWithGoogle() {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
+  // loginWithGoogle() {
+  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  // }
 
-  public onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
+  // public onSignIn(googleUser) {
+  //   var profile = googleUser.getBasicProfile();
+  //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  //   console.log('Name: ' + profile.getName());
+  //   console.log('Image URL: ' + profile.getImageUrl());
+  //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  // }
 
 }
