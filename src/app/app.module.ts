@@ -37,6 +37,7 @@ import { CheckForUpdateService } from './core/services/online/check-for-update.s
 import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dialog.component';
 import { MobileActionButtonsComponent } from './shared/components/mobile-action-buttons/mobile-action-buttons.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import { NoteService } from './core/services/offline/note.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     CheckForUpdateService,
     {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
     {provide: APP_INITIALIZER, useFactory: PWAFactory, deps:[InternetStatusService, CheckForUpdateService], multi: true},
+    {provide: APP_INITIALIZER, useFactory: notesFactory, deps:[NoteService], multi: true},
     //{ provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
   ],
   bootstrap: [AppComponent]
@@ -89,6 +91,10 @@ export class AppModule { }
 
 export function themeFactory(themeService: ThemeService) {
   return () => themeService.setThemeOnStart();
+}
+
+export function notesFactory(notes: NoteService) {
+  return () => notes.initService();
 }
 
 export function PWAFactory(internetStatus: InternetStatusService, updates: CheckForUpdateService) {

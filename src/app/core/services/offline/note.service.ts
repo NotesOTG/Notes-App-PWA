@@ -20,11 +20,13 @@ export class NoteService {
   private _stateSubject: Subject<StateTypes> = new Subject<StateTypes>();
 
   /**
-   * 
+   * The current note id the user is editing
    */
   private _currentNoteId: number = -1;
 
-  constructor(private storage: StorageService) {
+  constructor(private storage: StorageService) {}
+
+  public initService() {
     this.getNotesInternal();
   }
 
