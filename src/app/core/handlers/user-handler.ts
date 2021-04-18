@@ -15,7 +15,6 @@ export class UserHandler {
         this.storage.getTable(StorageType.USER).get(0).then(val => {
             this._user = val;
         });
-        //this._user = internalUser !== (undefined || null) ? internalUser : null;
         return this;
     }
 

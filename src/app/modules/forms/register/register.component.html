@@ -1,0 +1,48 @@
+<div class="example-card" fxLayoutAlign="center start">
+    <mat-card fxFlex.gt-md="50" fxFlex="100" style="margin-top: 1rem;" class="form-group register-card">
+        <mat-card-header>
+            <mat-card-title><img src="/assets/icons/icon-128x128.png" style="background-color: whitesmoke;
+                border-radius: 6px;"><br>Create Account</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                <label for="email">Email: <span style="color: deeppink;">*</span></label>
+                <mat-form-field appearance="outline" [color]="'primary'">
+                    <input matInput type="text" placeholder="FirstNote@notesotg.com" id="email" formControlName="email">
+                    <mat-hint>Your email will never be shared</mat-hint>
+                    <mat-error *ngIf="email.errors?.taken">Email is already in use</mat-error>
+                    <mat-error *ngIf="email.errors?.email">Must be a valid email</mat-error>
+                    <mat-error *ngIf="email.errors?.required">Email is required</mat-error>
+                </mat-form-field>
+
+                <label for="password">Password: <span style="color: deeppink;">*</span></label>
+                <mat-form-field appearance="outline">
+                    <input matInput id="password" placeholder="*********" formControlName="password" [type]="passwordVisible ? 'text' : 'password'">
+                    <mat-icon matSuffix (click)="togglePassword()" style="cursor: pointer;">
+                        <span *ngIf="passwordVisible">visibility</span>
+                        <span *ngIf="!passwordVisible">visibility_off</span>
+                    </mat-icon>
+                    <mat-error *ngIf="password.errors?.minlength || password.errors?.required">Password must be 8 characters or longer</mat-error>
+                    <mat-error *ngIf="password.errors?.uppervalidate">Password must contain an uppercase letter</mat-error>
+                    <mat-error *ngIf="password.errors?.lowervalidate">Password must contain a lowercase letter</mat-error>
+                    <mat-error *ngIf="password.errors?.numbervalidate">Password must contains 1 number</mat-error>
+                    <mat-error *ngIf="password.errors?.specialvalidate">Password must contains 1 special character</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="accent" class="btn-expanded">Create Account</button>
+                <mat-error style="text-align: center; margin-top: 8px;" *ngIf="registerForm.hasError('loginError')">{{registerForm.getError('loginError')}}</mat-error>
+            <div class="social-buttons">
+                <p>Or sign up with</p>
+                <img src="/assets/svgs/brands/google.svg" alt="google" (click)="startSocialLogin(socialTypes.GOOGLE)">
+                <img src="/assets/svgs/brands/facebook.svg" alt="facebook" (click)="startSocialLogin(socialTypes.FACEBOOK)">
+                <img src="/assets/svgs/brands/microsoft.svg" alt="microsoft" (click)="startSocialLogin(socialTypes.MICROSOFT)">
+            </div>
+        </form>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-content style="text-align: center; padding-top: 1rem;">
+            <h4 style="margin: 0;">Already have an account?</h4>
+            <button mat-stroked-button color="accent"  style="width: 70%;" routerLink="/login">Go Login</button>
+        </mat-card-content>
+    </mat-card>
+</div>

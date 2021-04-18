@@ -7,5 +7,7 @@ export class EndPointsConfiguration {
 
     //Auth Endpoints
     public static readonly REGISTERURL: string = EndPointsConfiguration.AUTHURL + '/Register';
-
+    public static readonly LOGINURL: string = EndPointsConfiguration.AUTHURL + '/Login';
+    public static readonly CHECKEMAIL: string = EndPointsConfiguration.AUTHURL + '/CheckEmail?email=';
+    public static readonly SOCIALOGIN: string = EndPointsConfiguration.AUTHURL + '/SocialLogin';
 }

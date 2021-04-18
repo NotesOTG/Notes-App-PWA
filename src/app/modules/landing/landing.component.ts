@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { GlobalService } from 'src/app/core/services/offline/global.service';
 import { NoteService } from 'src/app/core/services/offline/note.service';
+import { AuthenticationService } from 'src/app/core/services/online/authentication.service';
+import { LoginResponse } from 'src/app/shared/exchanges/responses/impl/login-response';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
 @Component({
@@ -16,7 +19,9 @@ export class LandingComponent implements OnInit, AfterViewInit {
   constructor(    
     public noteService: NoteService,
     private router: Router,
-    private global: GlobalService
+    private global: GlobalService,
+    public socialService: SocialAuthService,
+    public authService: AuthenticationService
   ) { }
 
   ngAfterViewInit(): void {
@@ -39,16 +44,8 @@ export class LandingComponent implements OnInit, AfterViewInit {
     }, 50);
   }
 
-  // loginWithGoogle() {
-  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  // }
-
-  // public onSignIn(googleUser) {
-  //   var profile = googleUser.getBasicProfile();
-  //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  //   console.log('Name: ' + profile.getName());
-  //   console.log('Image URL: ' + profile.getImageUrl());
-  //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  // }
+  loginWithGoogle() {
+    this.socialService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
 
 }

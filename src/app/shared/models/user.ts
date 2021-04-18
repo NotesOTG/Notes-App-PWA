@@ -2,11 +2,11 @@ export class User {
 
     private _email: string;
 
-    private _username: string;
+    private _roles: string[];
 
-    constructor(email: string, username: string) {
+    constructor(email: string, roles: string[]) {
         this._email = email;
-        this._username = username;
+        this._roles = roles;
     }
 
     public get email(): string {
@@ -16,12 +16,20 @@ export class User {
         this._email = value;
     }
 
-    public get username(): string {
-        return this._username;
+    public get roles(): string[] {
+        return this._roles;
     }
 
-    public set username(value: string) {
-        this._username = value;
+    public set roles(value: string[]) {
+        this._roles = value;
+    }
+
+    public hasRole(role: string): boolean {
+        return this.roles.find(r => r == role) != null;
+    }
+
+    public getRole(role: string): string {
+        return this.roles.find(r => r == role);
     }
 
 }

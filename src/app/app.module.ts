@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ApplicationRef, APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NotePopCardComponent } from './shared/components/note-pop-card/note-pop-card.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AddCardComponent } from './modules/note-card/add-card/add-card.component';
 import { DeleteCardComponent } from './modules/note-card/delete-card/delete-card.component';
 import { EditCardComponent } from './modules/note-card/edit-card/edit-card.component';
@@ -38,6 +38,13 @@ import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dia
 import { MobileActionButtonsComponent } from './shared/components/mobile-action-buttons/mobile-action-buttons.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { NoteService } from './core/services/offline/note.service';
+import { LoginComponent } from './modules/forms/login/login.component';
+import { RegisterComponent } from './modules/forms/register/register.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiInterceptorInterceptor } from './core/interceptors/api-interceptor.interceptor';
+import { SiteConfigurations } from './core/configs/site-configurations';
+import { AuthenticationService } from './core/services/online/authentication.service';
+import { Popup } from './shared/models/popup';
 
 @NgModule({
   declarations: [
@@ -53,6 +60,8 @@ import { NoteService } from './core/services/offline/note.service';
     FocusDirective,
     PopupDialogComponent,
     MobileActionButtonsComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,17 +82,22 @@ import { NoteService } from './core/services/offline/note.service';
     MatSnackBarModule,
     MatMenuModule,
     MatListModule,
-    //SocialLoginModule
+    HttpClientModule,
+    SocialLoginModule
   ],
   providers: [
     ThemeService,
     StorageService,
     InternetStatusService,
     CheckForUpdateService,
+    AuthenticationService,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: SiteConfigurations.SNACK_DURATION}},
     {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
     {provide: APP_INITIALIZER, useFactory: PWAFactory, deps:[InternetStatusService, CheckForUpdateService], multi: true},
     {provide: APP_INITIALIZER, useFactory: notesFactory, deps:[NoteService], multi: true},
-    //{ provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
+    {provide: APP_INITIALIZER, useFactory: authenticationFactory, deps:[AuthenticationService], multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorInterceptor, multi: true},
+    { provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
   ],
   bootstrap: [AppComponent]
 })
@@ -97,6 +111,10 @@ export function notesFactory(notes: NoteService) {
   return () => notes.initService();
 }
 
+export function authenticationFactory(authService: AuthenticationService) {
+  return () => authService.initService();
+}
+
 export function PWAFactory(internetStatus: InternetStatusService, updates: CheckForUpdateService) {
   return () => {
     internetStatus.initService();
@@ -104,17 +122,17 @@ export function PWAFactory(internetStatus: InternetStatusService, updates: Check
   };
 }
 
-// export function socialConfig() {
-//   return {
-//     autoLogin: false,
-//     providers: [
-//       {
-//         id: GoogleLoginProvider.PROVIDER_ID,
-//         provider: new GoogleLoginProvider(
-//           '421303202733-m5l1jvf5skjvpkpf9jm0d8omsj3buf4p.apps.googleusercontent.com',
-//           'profile email'
-//         )
-//       }
-//     ]
-//   } as SocialAuthServiceConfig;
-// }
+export function socialConfig() {
+  return {
+    autoLogin: false,
+    providers: [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider(
+          '421303202733-m5l1jvf5skjvpkpf9jm0d8omsj3buf4p.apps.googleusercontent.com',
+          'profile email'
+        )
+      }
+    ]
+  } as SocialAuthServiceConfig;
+}

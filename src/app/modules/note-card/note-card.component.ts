@@ -28,8 +28,6 @@ export class NoteCardComponent implements OnInit {
   ngOnInit(): void {
     document.title = SiteConfigurations.TTILE + 'Notes';
 
-    if (SiteConfigurations.FIRST_LOAD < 1) { SiteConfigurations.FIRST_LOAD + 1; }
-    
     this.noteService.stateSubject.subscribe((state: StateTypes) => {
       this.currentState = state;
       this.maService.removeButtons();

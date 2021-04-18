@@ -46,6 +46,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   h3 {
     margin: 0;
   }
+  .mat-input-element {
+    caret-color: whitesmoke;
+  }
 }
 
 .form-shadow {
@@ -55,6 +58,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-card-title {
   margin-bottom: 0!important;
+}
+
+.btn-expanded {
+  width: 100%;
 }
 
 mat-card-content p:last-child {

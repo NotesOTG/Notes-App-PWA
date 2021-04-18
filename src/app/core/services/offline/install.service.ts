@@ -18,7 +18,7 @@ export class InstallService {
     });
 
     window.addEventListener('appinstalled', () => {
-      this.snackBar.open('Thank you for installing', 'Close', {duration: 1000 * 5});
+      this.snackBar.open('Thank you for installing', 'Close');
     });
   }
 

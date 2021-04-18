@@ -13,7 +13,11 @@ export class JwtHandler {
 
     public loadTokensInternal(): JwtHandler {
         this.storage.getTable(StorageType.JWTOKENS).get(0).then(val => {
-            this._jwtTokens = val;
+            if (val == null) {
+                this._jwtTokens = new JwTokens(null, null);
+            } else {
+                this._jwtTokens = val;
+            }
         });
         return this;
     }

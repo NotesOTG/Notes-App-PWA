@@ -1,0 +1,41 @@
+<div class="example-card" fxLayoutAlign="center start">
+    <mat-card fxFlex.gt-md="50" fxFlex="100" style="margin-top: 1rem;" class="form-group register-card">
+        <mat-card-header>
+            <mat-card-title><img src="/assets/icons/icon-128x128.png" style="background-color: whitesmoke;
+                border-radius: 6px;"><br>Sign In</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <label for="email">Email: <span style="color: deeppink;">*</span></label>
+                <mat-form-field appearance="outline" [color]="'primary'">
+                    <input matInput type="text" placeholder="FirstNote@notesotg.com" id="email" formControlName="email">
+                    <mat-error *ngIf="email.errors?.required">Email is required</mat-error>
+                </mat-form-field>
+
+                <label for="password">Password: <span style="color: deeppink;">*</span></label>
+                <mat-form-field appearance="outline">
+                    <input matInput id="password" placeholder="*********" formControlName="password" [type]="passwordVisible ? 'text' : 'password'">
+                    <mat-icon matSuffix (click)="togglePassword()" style="cursor: pointer;">
+                        <span *ngIf="passwordVisible">visibility</span>
+                        <span *ngIf="!passwordVisible">visibility_off</span>
+                    </mat-icon>
+                    <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="accent" class="btn-expanded">Login</button>
+                <mat-error style="text-align: center; margin-top: 8px;" *ngIf="loginForm.hasError('loginError')">{{loginForm.getError('loginError')}}</mat-error>
+            <div class="social-buttons">
+                <p>Or sign in with</p>
+                <img src="/assets/svgs/brands/google.svg" alt="google" (click)="startSocialLogin(socialTypes.GOOGLE)">
+                <img src="/assets/svgs/brands/facebook.svg" alt="facebook">
+                <img src="/assets/svgs/brands/microsoft.svg" alt="microsoft">
+            </div>
+        </form>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-content style="text-align: center; padding-top: 1rem;">
+            <h4 style="margin: 0;">Don't have an account?</h4>
+            <button mat-stroked-button color="accent"  style="width: 70%;" routerLink="/register">Create Account</button>
+        </mat-card-content>
+    </mat-card>
+</div>
