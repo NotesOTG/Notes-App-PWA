@@ -19,9 +19,7 @@ export class LandingComponent implements OnInit, AfterViewInit {
   constructor(    
     public noteService: NoteService,
     private router: Router,
-    private global: GlobalService,
-    public socialService: SocialAuthService,
-    public authService: AuthenticationService
+    private global: GlobalService
   ) { }
 
   ngAfterViewInit(): void {
@@ -42,10 +40,6 @@ export class LandingComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.noteService.stateSubject.next(StateTypes.CREATE);
     }, 50);
-  }
-
-  loginWithGoogle() {
-    this.socialService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
 }

@@ -7,6 +7,7 @@ import { InstallService } from '../../services/offline/install.service';
 import { NoteService } from '../../services/offline/note.service';
 import { PopupService } from '../../services/offline/popup.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
+import { AuthenticationService } from '../../services/online/authentication.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -26,7 +27,8 @@ export class ToolbarComponent implements OnInit {
     public noteService: NoteService,
     private router: Router,
     public popup: PopupService,
-    public installService: InstallService
+    public installService: InstallService,
+    public authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +45,10 @@ export class ToolbarComponent implements OnInit {
         }
       }
     });
+  }
+
+  public logout(): void {
+    this.authService.logout(this.authService.JWTHandler.jwtTokens.refreshToken).subscribe();
   }
 
   public createAndNavigateNotes() {

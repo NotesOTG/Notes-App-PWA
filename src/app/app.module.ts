@@ -45,6 +45,7 @@ import { ApiInterceptorInterceptor } from './core/interceptors/api-interceptor.i
 import { SiteConfigurations } from './core/configs/site-configurations';
 import { AuthenticationService } from './core/services/online/authentication.service';
 import { Popup } from './shared/models/popup';
+import { SettingsMainComponent } from './modules/account/settings-main/settings-main.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { Popup } from './shared/models/popup';
     MobileActionButtonsComponent,
     LoginComponent,
     RegisterComponent,
+    SettingsMainComponent,
   ],
   imports: [
     BrowserModule,

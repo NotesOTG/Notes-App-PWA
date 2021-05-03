@@ -6,5 +6,6 @@ export interface LoginResponse extends BasicResponse {
     token: string;
     refreshToken: string;
     roles: string[];
+    hasPassword: boolean;
 
 }

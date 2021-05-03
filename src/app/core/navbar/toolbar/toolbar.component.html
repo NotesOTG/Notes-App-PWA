@@ -1,27 +1,32 @@
 <div fxLayout="column" fxFlex="grow" fxFlexFill>
     <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <button fxHide fxShow.lt-md mat-icon-button (click)="drawer.toggle()">
+        <button mat-icon-button (click)="drawer.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>Notes OTG</span>
+        <span routerLink="/">Notes OTG</span>
         <button mat-button routerLink="/" fxShow fxHide.lt-md>Home</button>
         <button mat-button routerLink="/notes" fxShow fxHide.lt-md>Notes</button>
         <span class="example-spacer"></span>
-        
+
+        <button mat-button fxHide fxShow.gt-sm 
+          routerLink="/login" *ngIf="!authService.UserHandler.isUserExisting()">
+          Sign In
+        </button>
+
+        <button mat-button fxHide fxShow.gt-sm 
+          routerLink="/register" *ngIf="!authService.UserHandler.isUserExisting()">
+          Sign Up
+        </button>
+
         <button mat-icon-button fxHide fxShow.lt-md 
           (click)="createAndNavigateNotes()">
-          <mat-icon>note_add</mat-icon>
+            <mat-icon>note_add</mat-icon>
         </button>
 
-        <button mat-button fxHide fxShow.gt-sm
-          (click)="promptInstall();"
-          *ngIf="installService.canInstall">
-          <mat-icon>stay_current_portrait</mat-icon> Install
-        </button>
-
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
+        <button mat-icon-button fxHide fxShow.lt-md 
+          routerLink="/register" *ngIf="!authService.UserHandler.isUserExisting()">
+          <mat-icon>person_add</mat-icon>
         </button>
         
       </mat-toolbar-row>
@@ -37,21 +42,34 @@
           <mat-nav-list class="nav-list">
               <a mat-list-item routerLink="/" (click)="drawer.close()"><mat-icon id="nav-icon">home</mat-icon>Home</a>
               <a mat-list-item routerLink="/notes" (click)="drawer.close()"><mat-icon id="nav-icon">notes</mat-icon>Notes</a>
-              <a *ngIf="installService.canInstall" mat-list-item (click)="drawer.close(); promptInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
+          </mat-nav-list>
+
+          <mat-nav-list class="nav-list">
+            <div class="sub-heading">ACCOUNT</div>
+            <ng-container *ngIf="!authService.UserHandler.isUserExisting(); else existing">
+              <a mat-list-item routerLink="/register" (click)="drawer.close()"><mat-icon id="nav-icon">person_add</mat-icon>Sign Up</a>
+              <a mat-list-item routerLink="/login" (click)="drawer.close()"><mat-icon id="nav-icon">login</mat-icon>Login</a>
+            </ng-container>
+
+            <ng-template #existing>
+              <a mat-list-item routerLink="/settings" (click)="drawer.close()"><mat-icon id="nav-icon">settings</mat-icon>Settings</a>
+              <a mat-list-item (click)="logout(); drawer.close();"><mat-icon id="nav-icon">power_settings_new</mat-icon>Sign Out</a>
+            </ng-template>
+          </mat-nav-list>
+
+          <mat-nav-list class="nav-list">
+            <div class="sub-heading">PREFRENCES</div>
+            <a *ngIf="installService.canInstall" mat-list-item (click)="drawer.close(); promptInstall();"><mat-icon id="nav-icon">stay_current_portrait</mat-icon>Install</a>
+            <a mat-list-item (click)="themeService.setTheme()">
+              <mat-icon *ngIf="themeService.isThemeDark()">check_box</mat-icon>
+              <mat-icon *ngIf="!themeService.isThemeDark()">check_box_outline_blank</mat-icon>
+              <span>Dark Mode</span>
+            </a>
           </mat-nav-list>
         </mat-sidenav>
-      
         <mat-sidenav-content fxFlex="grow">
             <router-outlet></router-outlet>
             <app-mobile-action-buttons></app-mobile-action-buttons>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
-
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="themeService.setTheme()">
-    <mat-icon *ngIf="themeService.isThemeDark()">check_box</mat-icon>
-    <mat-icon *ngIf="!themeService.isThemeDark()">check_box_outline_blank</mat-icon>
-    <span>Dark Mode</span>
-  </button>
-</mat-menu>

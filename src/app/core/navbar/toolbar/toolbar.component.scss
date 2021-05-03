@@ -7,8 +7,18 @@
 }
 
 .nav-list {
-    margin-right: 12px;
-    margin-left: 12px;
+    width: 250px;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+
+    .sub-heading {
+        height: 40px;
+        font-size: 16px;
+        padding: 0 16px;
+        margin-bottom: 0;
+        line-height: 40px;
+        font-weight: 400;
+        color: #757575!important;
+    }
 }
 
 #nav-icon {

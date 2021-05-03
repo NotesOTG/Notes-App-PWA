@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * Handles the login response from the subscriptions
    * @param response The response we are returning
    */
+  //TDOD: Prompt to set password later
   private handleLoginResponse(response: LoginResponse): void {
     if (response.success) {
       this.snack.open('You have successfully signed in', 'Dismiss');

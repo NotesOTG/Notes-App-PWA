@@ -4,9 +4,12 @@ export class User {
 
     private _roles: string[];
 
-    constructor(email: string, roles: string[]) {
+    private _hasPassword: boolean;
+
+    constructor(email: string, roles: string[], hasPassword: boolean) {
         this._email = email;
         this._roles = roles;
+        this._hasPassword = hasPassword;
     }
 
     public get email(): string {
@@ -30,6 +33,13 @@ export class User {
 
     public getRole(role: string): string {
         return this.roles.find(r => r == role);
+    }
+
+    public get hasPassword_1(): boolean {
+        return this._hasPassword;
+    }
+    public set hasPassword_1(value: boolean) {
+        this._hasPassword = value;
     }
 
 }

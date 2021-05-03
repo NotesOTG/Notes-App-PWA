@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { EMPTY, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoginRequest } from 'src/app/shared/exchanges/requests/login-request';
@@ -77,7 +78,7 @@ export class AuthenticationService {
         return;
       }
 
-      this._userHandler.addUser(new User(response.email, response.roles));
+      this._userHandler.addUser(new User(response.email, response.roles, response.hasPassword));
       this._jwtHandler.updateTokens(response.token, response.refreshToken);
     }));
   }
@@ -96,8 +97,24 @@ export class AuthenticationService {
       if (!response.success) {
         return;
       }
-      this._userHandler.addUser(new User(response.email, response.roles));
+      this._userHandler.addUser(new User(response.email, response.roles, response.hasPassword));
       this._jwtHandler.updateTokens(response.token, response.refreshToken);
+    }));
+  }
+
+  public logout(refreshToken: string): Observable<BasicResponse> {
+    return this.http.post<BasicResponse>(
+      EndPointsConfiguration.LOGOUTURL + refreshToken,
+      EMPTY
+    ).pipe(tap((response: BasicResponse) => {
+      if (response.success) {
+        console.log('User got logged out correctly from the backend');
+      } else {
+        console.log('user did not get logged out correctly');
+      }
+
+      this.UserHandler.removeUser();
+      this.JWTHandler.removeTokens();
     }));
   }
 
