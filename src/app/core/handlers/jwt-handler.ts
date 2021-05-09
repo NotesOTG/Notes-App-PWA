@@ -34,7 +34,7 @@ export class JwtHandler {
             return false; 
         }
 
-        return this.jwtTokens.refreshToken == null && this.jwtTokens.primaryToken == null;
+        return this.jwtTokens.refreshToken != null && this.jwtTokens.primaryToken != null;
     }
 
     public async removeTokens(): Promise<void> {

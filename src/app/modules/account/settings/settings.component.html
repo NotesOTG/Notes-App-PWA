@@ -1,0 +1,30 @@
+<mat-card class="title">
+    <mat-card-title>Account Settings</mat-card-title>
+</mat-card>
+<mat-card fxLayout="row" class="settings-card">
+    <mat-card-content fxFlex="20" class="actions-side">
+        <!-- General Action button -->
+        <button mat-icon-button class="action" [disableRipple]="true"
+        (click)="changeSettings(accountSettingsType.GENERAL)"
+        [ngClass]="{'selected': isCurrentSettings(accountSettingsType.GENERAL)}">
+            <mat-icon>person</mat-icon> 
+            <span fxHide fxShow.gt-xs> General</span>
+        </button>
+        <mat-divider></mat-divider>
+        <!-- Password Action Button -->
+        <button mat-icon-button class="action selected" [disableRipple]="true"
+        (click)="changeSettings(accountSettingsType.PASSWORD)"
+        [ngClass]="{'selected': isCurrentSettings(accountSettingsType.PASSWORD)}">
+            <mat-icon>password</mat-icon> 
+            <span fxHide fxShow.gt-xs> Password</span>
+        </button>
+    </mat-card-content>
+    <mat-card-content fxFlex="80">
+        <mat-card class="forms-side form-group">
+            <mat-card-content>
+                <app-general-settings *ngIf="isCurrentSettings(accountSettingsType.GENERAL)"></app-general-settings>
+                <app-password-settings *ngIf="isCurrentSettings(accountSettingsType.PASSWORD)"></app-password-settings>
+            </mat-card-content>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

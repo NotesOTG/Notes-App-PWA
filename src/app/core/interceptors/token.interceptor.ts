@@ -4,24 +4,21 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpHeaders
 } from '@angular/common/http';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/online/authentication.service';
 
 @Injectable()
-export class CatchInterceptorInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthenticationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          console.log('401 caught');
-        }
-        return EMPTY;
-    }));
+    if (this.authService.JWTHandler.hasTokens()) {
+      let newHeaders: HttpHeaders = request.headers.append('Authorization', `Bearer ${this.authService.JWTHandler.jwtTokens.primaryToken}`);
+      return next.handle(request.clone({headers: newHeaders}));
+    }
+    return next.handle(request);
   }
 }

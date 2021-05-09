@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
 import { EMPTY, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoginRequest } from 'src/app/shared/exchanges/requests/login-request';
@@ -9,6 +9,7 @@ import { SocialRequest } from 'src/app/shared/exchanges/requests/social-request'
 import { BasicResponse } from 'src/app/shared/exchanges/responses/basic-reponse';
 import { LoginResponse } from 'src/app/shared/exchanges/responses/impl/login-response';
 import { RegisterResponse } from 'src/app/shared/exchanges/responses/impl/register-response';
+import { TokenResponse } from 'src/app/shared/exchanges/responses/impl/token-response';
 import { User } from 'src/app/shared/models/user';
 import { EndPointsConfiguration } from '../../configs/endpoint-configuration';
 import { JwtHandler } from '../../handlers/jwt-handler';
@@ -30,7 +31,7 @@ export class AuthenticationService {
    */
   private _jwtHandler: JwtHandler = null;
 
-  constructor(private storage: StorageService, public http: HttpClient) {}
+  constructor(private storage: StorageService, public http: HttpClient, private router: Router) {}
 
   /**
    * Used to initialize the service to load the data
@@ -102,19 +103,32 @@ export class AuthenticationService {
     }));
   }
 
-  public logout(refreshToken: string): Observable<BasicResponse> {
-    return this.http.post<BasicResponse>(
-      EndPointsConfiguration.LOGOUTURL + refreshToken,
+  public logout(): void {
+    this.http.post<BasicResponse>(
+      EndPointsConfiguration.LOGOUTURL + this.JWTHandler.jwtTokens.refreshToken,
       EMPTY
-    ).pipe(tap((response: BasicResponse) => {
-      if (response.success) {
-        console.log('User got logged out correctly from the backend');
-      } else {
-        console.log('user did not get logged out correctly');
-      }
-
+    ).subscribe(() => {
       this.UserHandler.removeUser();
       this.JWTHandler.removeTokens();
+      this.router.navigateByUrl('/login');
+    });
+  }
+
+  public changePassword(email: string, currentPassword: string, newPassword: string): Observable<BasicResponse> {
+    return this.http.post<BasicResponse>(
+      EndPointsConfiguration.CHANGEPASSWORD,
+      {email, currentPassword, newPassword}
+    );
+  }
+
+  public refreshTokens(email: string, refreshToken: string): Observable<TokenResponse> {
+    return this.http.post<TokenResponse>(
+      EndPointsConfiguration.REFRESHTOKENS, 
+      {email, refreshToken}
+    ).pipe(tap((response: TokenResponse) => {
+      if (response.success) {
+        this._jwtHandler.updateTokens(response.primaryToken, response.refreshToken);
+      }
     }));
   }
 

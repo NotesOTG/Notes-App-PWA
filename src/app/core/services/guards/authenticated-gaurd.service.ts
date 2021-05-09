@@ -5,19 +5,18 @@ import { AuthenticationService } from '../online/authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate {
+export class AuthenticatedGaurdService implements CanActivate {
 
-  constructor(public auth: AuthenticationService, private router: Router) { }
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const redirectRoute = route.data.redirect ?? '/notes';
-    if (this.auth.UserHandler.isUserExisting()) {
-      this.router.navigateByUrl(redirectRoute);
+    if (!this.auth.UserHandler.isUserExisting()) {
+      this.router.navigateByUrl('/login');
       return false;
     }
     return true;
   }
-
 
 
 }

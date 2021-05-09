@@ -41,11 +41,14 @@ import { NoteService } from './core/services/offline/note.service';
 import { LoginComponent } from './modules/forms/login/login.component';
 import { RegisterComponent } from './modules/forms/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ApiInterceptorInterceptor } from './core/interceptors/api-interceptor.interceptor';
+import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { SiteConfigurations } from './core/configs/site-configurations';
 import { AuthenticationService } from './core/services/online/authentication.service';
-import { Popup } from './shared/models/popup';
-import { SettingsMainComponent } from './modules/account/settings-main/settings-main.component';
+import { SettingsComponent } from './modules/account/settings/settings.component';
+import { PasswordSettingsComponent } from './modules/account/settings/password-settings/password-settings.component';
+import { GeneralSettingsComponent } from './modules/account/settings/general-settings/general-settings.component';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { CatchInterceptor } from './core/interceptors/catch.interceptor';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { SettingsMainComponent } from './modules/account/settings-main/settings-
     MobileActionButtonsComponent,
     LoginComponent,
     RegisterComponent,
-    SettingsMainComponent,
+    SettingsComponent,
+    PasswordSettingsComponent,
+    GeneralSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +103,9 @@ import { SettingsMainComponent } from './modules/account/settings-main/settings-
     {provide: APP_INITIALIZER, useFactory: PWAFactory, deps:[InternetStatusService, CheckForUpdateService], multi: true},
     {provide: APP_INITIALIZER, useFactory: notesFactory, deps:[NoteService], multi: true},
     {provide: APP_INITIALIZER, useFactory: authenticationFactory, deps:[AuthenticationService], multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: CatchInterceptor, multi: true},
     { provide: 'SocialAuthServiceConfig', useValue: socialConfig() },
   ],
   bootstrap: [AppComponent]

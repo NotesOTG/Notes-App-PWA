@@ -15,7 +15,7 @@
     width: 100%;
 }
 
-.action:hover {
+.action:not(.selected):hover {
     background-color: rgba(var(--accent-color-alpha), 0.4);
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
+import { BasicResponse } from 'src/app/shared/exchanges/responses/basic-reponse';
 import { ButtonType } from 'src/app/shared/models/button-types';
 import { Popup } from 'src/app/shared/models/popup';
 import { StateTypes } from 'src/app/shared/models/state-types';
@@ -48,7 +49,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   public logout(): void {
-    this.authService.logout(this.authService.JWTHandler.jwtTokens.refreshToken).subscribe();
+    this.authService.logout();
+    this.router.navigateByUrl('/login');
   }
 
   public createAndNavigateNotes() {

@@ -35,10 +35,10 @@ export class User {
         return this.roles.find(r => r == role);
     }
 
-    public get hasPassword_1(): boolean {
+    public get hasPassword(): boolean {
         return this._hasPassword;
     }
-    public set hasPassword_1(value: boolean) {
+    public set hasPassword(value: boolean) {
         this._hasPassword = value;
     }
 

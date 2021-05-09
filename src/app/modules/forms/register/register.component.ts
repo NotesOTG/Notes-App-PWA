@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Observable, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
-import { PopupService } from 'src/app/core/services/offline/popup.service';
 import { AuthenticationService } from 'src/app/core/services/online/authentication.service';
 import { SocialLoginService } from 'src/app/core/services/online/social-login.service';
 import { RegisterRequest } from 'src/app/shared/exchanges/requests/register-request';
@@ -49,7 +48,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private snack: MatSnackBar, 
     private router: Router,
     private socialLoginService: SocialLoginService,
-    private pop: PopupService
     ) {
     this.registerForm = fb.group({
       "email": new FormControl('', {
