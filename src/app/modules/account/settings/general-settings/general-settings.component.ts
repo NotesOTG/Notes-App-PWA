@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-general-settings',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralSettingsComponent implements OnInit {
 
-  constructor() { }
+  public generalForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+  ) {
+    this.generalForm = fb.group({});
+  }
 
   ngOnInit(): void {
+
+  }
+
+  onSubmit(): void {
+
   }
 
 }

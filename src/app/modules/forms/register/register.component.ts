@@ -86,6 +86,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
    * The form submission method
    */
   public onSubmit() {
+    if (this.registerForm.invalid && this.registerForm.pristine) {
+      return;
+    }
+
     let email = this.email.value;
     let password = this.password.value;
 

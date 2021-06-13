@@ -1,0 +1,10 @@
+<div>
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+        <label for="email">Email: <span style="color: deeppink;">*</span></label>
+        <mat-form-field appearance="outline" [color]="'primary'" style="margin-bottom: 0;">
+            <input matInput placeholder="exmaple@example.com" id="email" formControlName="email">  <!-- formControlName="email" -->
+            <mat-icon matSuffix style="cursor: pointer;" (click)="changeEdit()">edit</mat-icon>
+        </mat-form-field>
+        <h5 style="line-height: 2px; text-indent: 0.5rem; color: #90ee90;">Email has been verified</h5>
+    </form>
+</div>

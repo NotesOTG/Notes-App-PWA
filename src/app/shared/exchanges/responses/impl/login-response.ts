@@ -7,5 +7,6 @@ export interface LoginResponse extends BasicResponse {
     refreshToken: string;
     roles: string[];
     hasPassword: boolean;
+    emailVerified: boolean;
 
 }

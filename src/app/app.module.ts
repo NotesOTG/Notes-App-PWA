@@ -11,6 +11,7 @@ import { ToolbarComponent } from './core/navbar/toolbar/toolbar.component';
 import { ThemeService } from './core/services/offline/theme.service';
 import { StorageService } from './core/services/offline/storage.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -49,6 +50,8 @@ import { PasswordSettingsComponent } from './modules/account/settings/password-s
 import { GeneralSettingsComponent } from './modules/account/settings/general-settings/general-settings.component';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { CatchInterceptor } from './core/interceptors/catch.interceptor';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { EmailSettingsComponent } from './modules/account/settings/email-settings/email-settings.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,7 @@ import { CatchInterceptor } from './core/interceptors/catch.interceptor';
     SettingsComponent,
     PasswordSettingsComponent,
     GeneralSettingsComponent,
+    EmailSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +94,9 @@ import { CatchInterceptor } from './core/interceptors/catch.interceptor';
     MatMenuModule,
     MatListModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   providers: [
     ThemeService,

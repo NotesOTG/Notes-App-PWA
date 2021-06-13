@@ -1,5 +1,5 @@
 <mat-card class="title">
-    <mat-card-title>Account Settings</mat-card-title>
+    <mat-card-title>{{subTitle}} Account Settings</mat-card-title>
 </mat-card>
 <mat-card fxLayout="row" class="settings-card">
     <mat-card-content fxFlex="20" class="actions-side">
@@ -11,6 +11,14 @@
             <span fxHide fxShow.gt-xs> General</span>
         </button>
         <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
+        <!-- Password Action Button -->
+        <button mat-icon-button class="action selected" [disableRipple]="true"
+        (click)="changeSettings(accountSettingsType.EMAIL)"
+        [ngClass]="{'selected': isCurrentSettings(accountSettingsType.EMAIL)}">
+            <mat-icon>email</mat-icon> 
+            <span fxHide fxShow.gt-xs> Email</span>
+        </button>
         <!-- Password Action Button -->
         <button mat-icon-button class="action selected" [disableRipple]="true"
         (click)="changeSettings(accountSettingsType.PASSWORD)"
@@ -24,6 +32,7 @@
             <mat-card-content>
                 <app-general-settings *ngIf="isCurrentSettings(accountSettingsType.GENERAL)"></app-general-settings>
                 <app-password-settings *ngIf="isCurrentSettings(accountSettingsType.PASSWORD)"></app-password-settings>
+                <app-email-settings *ngIf="isCurrentSettings(accountSettingsType.EMAIL)"></app-email-settings>
             </mat-card-content>
         </mat-card>
     </mat-card-content>

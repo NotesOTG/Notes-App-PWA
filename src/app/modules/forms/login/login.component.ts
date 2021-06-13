@@ -71,10 +71,13 @@ export class LoginComponent implements OnInit, OnDestroy {
    * The form submission method
    */
   public onSubmit(): void {
+    if (this.loginForm.invalid && this.loginForm.pristine) {
+      return;
+    }
+
     let email = this.email.value;
     let password = this.password.value;
 
-    
     this.loginSub$ = this.auth.login(new LoginRequest(email, password)).subscribe((response: LoginResponse) => {
       this.handleLoginResponse(response);
     });

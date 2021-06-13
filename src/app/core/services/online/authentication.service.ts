@@ -79,7 +79,7 @@ export class AuthenticationService {
         return;
       }
 
-      this._userHandler.addUser(new User(response.email, response.roles, response.hasPassword));
+      this._userHandler.addUser(new User(response.email, response.roles, response.hasPassword, response.emailVerified));
       this._jwtHandler.updateTokens(response.token, response.refreshToken);
     }));
   }
@@ -98,7 +98,7 @@ export class AuthenticationService {
       if (!response.success) {
         return;
       }
-      this._userHandler.addUser(new User(response.email, response.roles, response.hasPassword));
+      this._userHandler.addUser(new User(response.email, response.roles, response.hasPassword, response.emailVerified));
       this._jwtHandler.updateTokens(response.token, response.refreshToken);
     }));
   }

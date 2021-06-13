@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable, timer } from 'rxjs';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { AuthenticationService } from 'src/app/core/services/online/authentication.service';
 import { Validation } from 'src/app/modules/forms/validation';
@@ -34,15 +36,18 @@ export class PasswordSettingsComponent implements OnInit {
       "currentPassword": new FormControl('', [
         Validators.required
       ]),
-      "newPassword": new FormControl('', [
-        Validators.required,
+      "newPassword": new FormControl('', {
+        validators: [
         Validators.minLength(SiteConfigurations.PASSWORD_MIN_LENGTH),
         Validators.maxLength(SiteConfigurations.PASSWORD_MAX_LENGTH),
-        Validation.specialCharacterValidator(),
         Validation.uppercaseValidator(),
         Validation.lowercaseValidator(),
-        Validation.numberValidator()
-      ])
+        Validation.numberValidator(),
+        Validators.required,
+        Validation.specialCharacterValidator(),
+      ], asyncValidators: [
+        this.samePasswordValidation.bind(this),
+      ]})
     });
     this.hasPassword = this.authService.UserHandler.getUser().hasPassword;
   }
@@ -54,6 +59,10 @@ export class PasswordSettingsComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.passwordForm.invalid && this.passwordForm.pristine) {
+      return;
+    }
+    
     var newPassword = this.newPassword.value;
     var currentPassword = this.currentPassword.value;
     var email = this.authService.UserHandler.getUser().email;
@@ -64,11 +73,26 @@ export class PasswordSettingsComponent implements OnInit {
         this.authService.logout();
       }
 
-      if (response.error.includes('Incorrect')) {
+      if (response.error?.includes('Incorrect')) {
         this.currentPassword.setErrors({incorrect: true});
       }
 
+      if (response.error?.includes('same')) {
+        this.newPassword.setErrors({same: true});
+      }
+
     })
+  }
+
+  private samePasswordValidation(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    return timer(500).pipe(
+      distinctUntilChanged(),
+      map(_ => {
+        var currentPassword: string = this.currentPassword.value;
+        var newPassword: string = this.newPassword.value;
+        return currentPassword != newPassword ? null : {same: true};
+      })
+    );
   }
 
   /**

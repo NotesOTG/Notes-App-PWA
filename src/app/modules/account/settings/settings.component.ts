@@ -9,10 +9,12 @@ export class SettingsComponent implements OnInit {
 
   public accountSettingsType = AccountSettingsType;
   private currentSettingsType: AccountSettingsType;
+  public subTitle: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.subTitle = AccountSettingsType.GENERAL.toString();
     this.currentSettingsType = AccountSettingsType.GENERAL;
   }
 
@@ -21,12 +23,14 @@ export class SettingsComponent implements OnInit {
   }
 
   public changeSettings(accountSettingsType: AccountSettingsType): void {
+    this.subTitle = accountSettingsType.toString();
     this.currentSettingsType = accountSettingsType;
   }
 
 }
 
 export enum AccountSettingsType {
-  PASSWORD,
-  GENERAL
+  PASSWORD = "Password",
+  GENERAL = "General",
+  EMAIL = "Email"
 }
