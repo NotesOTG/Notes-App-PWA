@@ -1,18 +1,19 @@
+@use '~@angular/material' as mat;
 @mixin theme-color-grabber($theme) {
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
     $warn: map-get($theme, warn);
   
-    --primary-color: #{mat-color($primary)};
-    --primary-color-alpha: #{hexToRGBString(mat-color($primary))};
+    --primary-color: #{mat.get-color-from-palette($primary)};
+    --primary-color-alpha: #{hexToRGBString(mat.get-color-from-palette($primary))};
   
-    --accent-color: #{mat-color($accent)};
-    --accent-color-alpha: #{hexToRGBString(mat-color($accent))};
+    --accent-color: #{mat.get-color-from-palette($accent)};
+    --accent-color-alpha: #{hexToRGBString(mat.get-color-from-palette($accent))};
   
-    --warn-color: #{mat-color($warn)};
-    --warn-color-alpha: #{hexToRGBString(mat-color($warn))};
+    --warn-color: #{mat.get-color-from-palette($warn)};
+    --warn-color-alpha: #{hexToRGBString(mat.get-color-from-palette($warn))};
   
-    --border-color: rgba(#{hexToRGBString(mat-color($primary))}, 0.9);
+    --border-color: rgba(#{hexToRGBString(mat.get-color-from-palette($primary))}, 0.9);
   }
   
   @function hexToRGBString($hexColor) {

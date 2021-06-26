@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "light-theme.scss";
 @import "dark-theme.scss";
 @import "colors.scss";
@@ -5,12 +6,12 @@
 
 .light-theme {
   @include theme-color-grabber($candy-app-theme);
-  // @include angular-material-color($candy-app-theme);
+  // @include mat.all-component-colors($candy-app-theme);
   // --border-color: rgb(0, 0, 255);
 }
 
 .dark-theme {
   @include theme-color-grabber($dark-theme);
-  @include angular-material-color($dark-theme);
+  @include mat.all-component-colors($dark-theme);
   // --border-color: rgb(128, 0, 128);
 }
