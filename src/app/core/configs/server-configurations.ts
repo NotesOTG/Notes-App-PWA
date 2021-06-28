@@ -8,6 +8,6 @@ export class ServerConfigurations {
 
     public static readonly PUBLICLINK: string = ServerConfigurations.PRODUCTION ? 
         'https://notesotg.com/' + ServerConfigurations.PREFIX : 
-        'https://localhost:5001/' + ServerConfigurations.PREFIX;
+        'https://localhost:44361/' + ServerConfigurations.PREFIX;
         
 }

@@ -15,6 +15,6 @@ export class EndPointsConfiguration {
     public static readonly REFRESHTOKENS: string = EndPointsConfiguration.AUTHURL + '/refreshTokens';
 
     //User Endpoints
-    public static readonly CHANGEPASSWORD: string = EndPointsConfiguration.USERURL + '/setPassword';
+    public static readonly CHANGEPASSWORD: string = EndPointsConfiguration.USERURL + '/changePassword';
 
 }
