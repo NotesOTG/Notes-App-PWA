@@ -1,0 +1,23 @@
+.verified-email {
+    display: flex;
+    font-size: 0.75rem;
+    text-indent: 0.5rem;
+    color: yellow;
+
+    h5 {
+        padding-top: 0.12rem;
+        margin: 0;
+    }
+
+    mat-icon {
+        margin-right: 0.25rem;
+    }
+}
+
+.verified {
+    color: #90ee90!important;
+}
+
+.not-verified {
+    color: deeppink!important;
+}

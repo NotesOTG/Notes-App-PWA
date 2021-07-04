@@ -16,5 +16,6 @@ export class EndPointsConfiguration {
 
     //User Endpoints
     public static readonly CHANGEPASSWORD: string = EndPointsConfiguration.USERURL + '/changePassword';
+    public static readonly VERIFIEDEMAIL: string = EndPointsConfiguration.USERURL + '/verifiedEmail';
 
 }

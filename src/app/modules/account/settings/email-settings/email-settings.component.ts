@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/services/online/authentication.service';
+import { BasicResponse } from 'src/app/shared/exchanges/responses/basic-reponse';
 
 @Component({
   selector: 'app-email-settings',
   templateUrl: './email-settings.component.html',
   styleUrls: ['./email-settings.component.scss']
 })
-export class EmailSettingsComponent implements OnInit {
+export class EmailSettingsComponent implements OnInit, AfterViewInit {
 
   public emailForm: FormGroup;
 
   private editingEmail: boolean = false;
+
+  public emailConfirmed: boolean = null;
 
   constructor(
     private fb: FormBuilder,
@@ -28,19 +31,25 @@ export class EmailSettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.checkEmailVerified();
+  }
+
   onSubmit(): void {
 
   }
 
   public changeEdit() {
+    return;
     this.emailControl.disabled ?
     this.emailControl.enable() :
     this.emailControl.disable();
-    // if (this.emailControl.disabled) {
-    //   this.emailControl.enable();
-    // } else {
-    //   this.emailControl.disable();
-    // }
+  }
+
+  public checkEmailVerified() : void {
+    this.auth.verifiedEmail().subscribe((response: BasicResponse) => {
+      this.emailConfirmed = response.success;
+    });
   }
 
   get emailControl() {
