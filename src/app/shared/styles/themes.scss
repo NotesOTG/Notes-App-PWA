@@ -8,10 +8,12 @@
   @include theme-color-grabber($candy-app-theme);
   // @include mat.all-component-colors($candy-app-theme);
   // --border-color: rgb(0, 0, 255);
+  --success-color: rgb(108,192,112);
 }
 
 .dark-theme {
   @include theme-color-grabber($dark-theme);
   @include mat.all-component-colors($dark-theme);
   // --border-color: rgb(128, 0, 128);
+  --success-color: rgb(108,192,112);
 }

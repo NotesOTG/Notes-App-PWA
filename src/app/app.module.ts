@@ -52,6 +52,8 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { CatchInterceptor } from './core/interceptors/catch.interceptor';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { EmailSettingsComponent } from './modules/account/settings/email-settings/email-settings.component';
+import { VerifyEmailComponent } from './modules/account/verifyemail/verifyemail.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,7 @@ import { EmailSettingsComponent } from './modules/account/settings/email-setting
     PasswordSettingsComponent,
     GeneralSettingsComponent,
     EmailSettingsComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ import { EmailSettingsComponent } from './modules/account/settings/email-setting
     HttpClientModule,
     SocialLoginModule,
     MatSlideToggleModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     ThemeService,

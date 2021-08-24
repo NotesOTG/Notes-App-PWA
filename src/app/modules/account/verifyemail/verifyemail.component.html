@@ -1,0 +1,24 @@
+<div class="example-card" fxLayoutAlign="center start">
+    <mat-card fxFlex.gt-md="50" fxFlex="100" style="margin-top: 1rem;" class="form-group register-card">
+        <mat-card-header>
+            <mat-card-title>Verify Email</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="text-align: center; margin: 0 auto;">
+            <ng-container *ngIf="success == null">
+                <mat-spinner
+                class="example-margin"
+                [color]="'accent'">
+                </mat-spinner>
+                <h4>Working on validating your email</h4>
+            </ng-container>
+            <ng-container *ngIf="success == true">
+                <mat-icon class="success">check_circle</mat-icon>
+                <h4>Your email has been verified!<br>You can close out this window</h4>
+            </ng-container>
+            <ng-container *ngIf="success == false">
+                <mat-icon class="error">cancel</mat-icon>
+                <h4>Unable to verify your email.{{serverError}}<br>You can close out this window</h4>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+</div>

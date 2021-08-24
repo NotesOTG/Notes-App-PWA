@@ -132,12 +132,6 @@ export class AuthenticationService {
     }));
   }
 
-  public verifiedEmail(): Observable<BasicResponse> {
-    return this.http.get<BasicResponse>(
-      EndPointsConfiguration.VERIFIEDEMAIL
-    );
-  }
-
   /**
    * Gets the user handler object
    */

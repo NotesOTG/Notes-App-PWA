@@ -17,6 +17,6 @@
                 <h5>Seeing if your email is verified</h5>
             </ng-container>
         </div>
-        <button *ngIf="!emailConfirmed" mat-raised-button color="accent" style="margin-top: 0.5rem;">Resend Verification Email</button>
+        <button *ngIf="!emailConfirmed" mat-raised-button color="accent" style="margin-top: 0.5rem;" (click)="issueEmailVerification()">Resend Verification Email</button>
     </form>
 </div>

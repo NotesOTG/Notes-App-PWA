@@ -57,6 +57,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-width: thin;
 }
 
+.error {
+  color: var(--warn-color);
+}
+
+.success {
+  color: var(--success-color);
+}
+
 .mat-card-title {
   margin-bottom: 0!important;
 }
