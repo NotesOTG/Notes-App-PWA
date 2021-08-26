@@ -6,6 +6,7 @@ import { Observable, timer } from 'rxjs';
 import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { AuthenticationService } from 'src/app/core/services/online/authentication.service';
+import { ServerUserService } from 'src/app/core/services/online/server-user.service';
 import { Validation } from 'src/app/modules/forms/validation';
 import { BasicResponse } from 'src/app/shared/exchanges/responses/basic-reponse';
 import { ButtonType } from 'src/app/shared/models/button-types';
@@ -30,7 +31,8 @@ export class PasswordSettingsComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthenticationService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private serverUser: ServerUserService
     ) {
     this.passwordForm = fb.group({
       "currentPassword": new FormControl('', [
@@ -56,6 +58,11 @@ export class PasswordSettingsComponent implements OnInit {
     if (!this.hasPassword) {
       this.currentPassword.clearValidators();
     }
+    this.serverUser.verifiedEmail().subscribe((response: BasicResponse) => {
+      if (!response.success) {
+        this.passwordForm.setErrors({notValid: true});
+      }
+    });
   }
 
   onSubmit() {

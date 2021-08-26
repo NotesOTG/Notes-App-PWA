@@ -5,18 +5,18 @@
             <input matInput placeholder="exmaple@example.com" id="email" formControlName="email">  <!-- formControlName="email" -->
             <!-- <mat-icon matSuffix style="cursor: pointer;" (click)="changeEdit()">edit</mat-icon> -->
         </mat-form-field>
-        <div class="verified-email" [ngClass]="emailConfirmed ? 'verified' : 'not-verified' " (click)="checkEmailVerified()">
+        <div class="verified-email" [ngClass]="{'pending' : emailConfirmed == null, 'verified' : emailConfirmed == true, 'not-verified' : emailConfirmed == false }" (click)="checkEmailVerified()">
             <mat-icon>refresh</mat-icon>
-            <ng-container *ngIf="emailConfirmed == true else notConfirmed" class="verified">
+            <ng-container *ngIf="emailConfirmed == true">
                 <h5>Email has been verified</h5>
             </ng-container>
-            <ng-template #notConfirmed class="not-verified">
+            <ng-container *ngIf="emailConfirmed == false">
                 <h5>Email is not verified</h5>
-            </ng-template>
-            <ng-container *ngIf="checkingEmail == true">
+            </ng-container>
+            <ng-container *ngIf="emailConfirmed == null">
                 <h5>Seeing if your email is verified</h5>
             </ng-container>
         </div>
-        <button *ngIf="!emailConfirmed" mat-raised-button color="accent" style="margin-top: 0.5rem;" (click)="issueEmailVerification()">Resend Verification Email</button>
+        <button *ngIf="emailConfirmed == false" mat-raised-button color="accent" style="margin-top: 0.5rem;" (click)="issueEmailVerification()">Resend Verification Email</button>
     </form>
 </div>

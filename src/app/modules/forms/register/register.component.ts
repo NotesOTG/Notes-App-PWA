@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registerSub$ = this.auth.register(new RegisterRequest(email, password)).subscribe((response: RegisterResponse) => {
       if (response.success) {
-        this.snack.open('Account was successfully created. Please login.', 'Dismiss');
+        this.snack.open('Account was successfully created. Please check your email and login.', 'Dismiss');
         this.router.navigateByUrl('/login');
         return;
       }

@@ -65,6 +65,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: var(--success-color);
 }
 
+.pending {
+  color: var(--accent-color);
+}
+
 .mat-card-title {
   margin-bottom: 0!important;
 }

@@ -18,8 +18,6 @@ export class EmailSettingsComponent implements OnInit, AfterViewInit {
 
   public emailConfirmed: boolean = null;
 
-  public checkingEmail: boolean = true;
-
   constructor(
     private fb: FormBuilder,
     private auth: AuthenticationService,
@@ -53,10 +51,8 @@ export class EmailSettingsComponent implements OnInit, AfterViewInit {
   }
 
   public checkEmailVerified() : void {
-    this.checkingEmail = true;
     this.serverUser.verifiedEmail().subscribe((response: BasicResponse) => {
       this.emailConfirmed = response.success;
-      this.checkingEmail = false;
     });
   }
 
