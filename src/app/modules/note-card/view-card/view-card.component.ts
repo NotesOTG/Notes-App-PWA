@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NoteService } from 'src/app/core/services/offline/note.service';
+import { NoteService } from 'src/app/core/services/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
 @Component({

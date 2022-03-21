@@ -5,6 +5,7 @@ export class EndPointsConfiguration {
     //Controller prefixes
     private static readonly AUTHURL: string = ServerConfigurations.PUBLICLINK + 'auth';
     private static readonly USERURL: string = ServerConfigurations.PUBLICLINK + 'user';
+    private static readonly NOTEURL: string = ServerConfigurations.PUBLICLINK + 'notes';
 
     //Auth Endpoints
     public static readonly REGISTERURL: string = EndPointsConfiguration.AUTHURL + '/Register';
@@ -20,4 +21,8 @@ export class EndPointsConfiguration {
     public static readonly ISSUEEMAILTOKEN: string = EndPointsConfiguration.USERURL + '/IssueEmailToken';
     public static readonly CONFIRMEMAIL: string = EndPointsConfiguration.USERURL + '/confirmEmail';
 
+    //Note Endpoints
+    public static readonly ADDNOTE: string = EndPointsConfiguration.NOTEURL + '/addNote';
+    public static readonly REMOVENOTE: string = EndPointsConfiguration.NOTEURL + '/deleteNote?publicNoteId=';
+    public static readonly UPDATENOTE: string = EndPointsConfiguration.NOTEURL + '/updateNote';
 }

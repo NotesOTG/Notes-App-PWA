@@ -5,7 +5,7 @@ import { ButtonType } from 'src/app/shared/models/button-types';
 import { Popup } from 'src/app/shared/models/popup';
 import { StateTypes } from 'src/app/shared/models/state-types';
 import { InstallService } from '../../services/offline/install.service';
-import { NoteService } from '../../services/offline/note.service';
+import { NoteService } from '../../services/note.service';
 import { PopupService } from '../../services/offline/popup.service';
 import { ThemeService, ThemeType } from '../../services/offline/theme.service';
 import { AuthenticationService } from '../../services/online/authentication.service';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MobileActionButtonsService } from 'src/app/core/services/offline/mobile-action-buttons.service';
-import { NoteService } from 'src/app/core/services/offline/note.service';
+import { NoteService } from 'src/app/core/services/note.service';
 import { ButtonType } from 'src/app/shared/models/button-types';
 import { Catergories } from 'src/app/shared/models/categories';
 import { Notes } from 'src/app/shared/models/notes';
@@ -64,13 +64,13 @@ export class AddCardComponent implements OnInit {
   /**
    * The submit method for the form
    */
-  public onSubmit() {
+  public async onSubmit() {
     let note = new Notes(this.title.value, this.body.value, false, this.category.value, this.isCustomCategory);
     if (note.creationDate == undefined || null) {
-      note.creationDate = new Date().toLocaleDateString();
+      note.creationDate = new Date().toLocaleString();
     }
 
-    let result = this.noteService.addNote(note);
+    let result = await this.noteService.addNote(note);
     if (result) {
       this.snackbar.open('Your note was saved', 'Close', {duration: 1000 * 5});
       this.noteService.stateSubject.next(StateTypes.DEFAULT);

@@ -4,7 +4,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MobileActionButtonsService } from 'src/app/core/services/offline/mobile-action-buttons.service';
-import { NoteService } from 'src/app/core/services/offline/note.service';
+import { NoteService } from 'src/app/core/services/note.service';
 import { ButtonType } from 'src/app/shared/models/button-types';
 import { Catergories } from 'src/app/shared/models/categories';
 import { Notes } from 'src/app/shared/models/notes';
@@ -106,7 +106,7 @@ export class EditCardComponent implements OnInit {
     this.note.body = this.body.value;
     this.note.category = this.category.value;
     this.note.customCategory = this.isCustomCategory;
-    this.note.modifiedDate = Date.now();
+    this.note.modifiedDate = new Date().toLocaleString();
     let result = this.noteService.updateNote(this.noteService.currentNoteId, this.note);
     if (result) {
       this.snackbar.open('Your note has been saved', 'close', {duration: 1000 * 5});

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NoteService } from 'src/app/core/services/offline/note.service';
+import { NoteService } from 'src/app/core/services/note.service';
 import { Notes } from 'src/app/shared/models/notes';
 import { StateTypes } from 'src/app/shared/models/state-types';
 

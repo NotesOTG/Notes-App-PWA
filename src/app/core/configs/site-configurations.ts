@@ -7,4 +7,6 @@ export class SiteConfigurations {
     public static readonly PASSWORD_MIN_LENGTH: number = 8;
     public static readonly PASSWORD_MAX_LENGTH: number = 32;
 
+    public static CONNECTION_ONLINE: boolean = true;
+
 }

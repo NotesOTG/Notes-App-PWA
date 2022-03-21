@@ -38,7 +38,7 @@ import { CheckForUpdateService } from './core/services/online/check-for-update.s
 import { PopupDialogComponent } from './shared/components/popup-dialog/popup-dialog.component';
 import { MobileActionButtonsComponent } from './shared/components/mobile-action-buttons/mobile-action-buttons.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
-import { NoteService } from './core/services/offline/note.service';
+import { NoteService } from './core/services/note.service';
 import { LoginComponent } from './modules/forms/login/login.component';
 import { RegisterComponent } from './modules/forms/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';

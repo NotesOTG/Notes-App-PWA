@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { MobileActionButtonsService } from 'src/app/core/services/offline/mobile-action-buttons.service';
-import { NoteService } from 'src/app/core/services/offline/note.service';
+import { NoteService } from 'src/app/core/services/note.service';
 import { StateTypes } from 'src/app/shared/models/state-types';
 
 @Component({

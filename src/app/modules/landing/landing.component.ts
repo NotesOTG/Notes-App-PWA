@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { SiteConfigurations } from 'src/app/core/configs/site-configurations';
 import { GlobalService } from 'src/app/core/services/offline/global.service';
-import { NoteService } from 'src/app/core/services/offline/note.service';
+import { NoteService } from 'src/app/core/services/note.service';
 import { AuthenticationService } from 'src/app/core/services/online/authentication.service';
 import { LoginResponse } from 'src/app/shared/exchanges/responses/impl/login-response';
 import { StateTypes } from 'src/app/shared/models/state-types';
