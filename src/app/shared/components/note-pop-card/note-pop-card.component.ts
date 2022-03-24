@@ -31,10 +31,10 @@ export class NotePopCardComponent implements OnInit, AfterViewInit {
    * Adds an onclick listener for two html elements
    */
   ngAfterViewInit(): void {
-    this.card.nativeElement.onclick = () => {
+    this.card.nativeElement.onmousedown = () => {
       this.clicks++;
     }
-    this.div.nativeElement.onclick = () => {
+    this.div.nativeElement.onmousedown = () => {
       this.clicks++;
       this.clicked();
     }

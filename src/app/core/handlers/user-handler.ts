@@ -19,7 +19,7 @@ export class UserHandler {
     }
 
     public isUserExisting(): boolean {
-        return this._user != null
+        return this._user != null;
     }
 
     public getUser(): User {

@@ -15,13 +15,16 @@ const routes: Routes = [
     path: 'notes', component: NoteCardComponent, pathMatch: 'full'
   }, { 
     path: 'register', component: RegisterComponent, pathMatch: 'full', canActivate: [InvalidationGaurdService] 
-  }, {
+  },
+  {
     path: 'login', component: LoginComponent, pathMatch: 'full', canActivate: [InvalidationGaurdService], 
-  }, {
+  }, 
+  {
     path: 'settings', component: SettingsComponent, pathMatch: 'full', canActivate: [AuthenticatedGaurdService], 
   }, {
-    path: 'verifyemail', component: VerifyEmailComponent, pathMatch: 'full', canActivate: []
-  }
+    path: 'verifyemail', component: VerifyEmailComponent
+  },
+  // { path: 'a', loadChildren: () => import('./modulea/modulea.module').then(m => m.ModuleaModule) },
 ];
 
 @NgModule({

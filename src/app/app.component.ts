@@ -1,4 +1,6 @@
 import { Component, isDevMode, OnInit } from '@angular/core';
+import { ServerConfigurations } from './core/configs/server-configurations';
+import { SiteConfigurations } from './core/configs/site-configurations';
 import { HandleCacheService } from './core/services/offline/handle-cache.service';
 
 @Component({

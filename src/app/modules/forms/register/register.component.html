@@ -31,12 +31,13 @@
                 </mat-form-field>
                 <button mat-raised-button color="accent" class="btn-expanded">Create Account</button>
                 <mat-error style="text-align: center; margin-top: 8px;" *ngIf="registerForm.hasError('loginError')">{{registerForm.getError('loginError')}}</mat-error>
-            <div class="social-buttons">
+            <!-- <div class="social-buttons">
                 <p>Or sign up with</p>
                 <img src="/assets/svgs/brands/google.svg" alt="google" (click)="startSocialLogin(socialTypes.GOOGLE)">
+                
                 <img src="/assets/svgs/brands/facebook.svg" alt="facebook" (click)="startSocialLogin(socialTypes.FACEBOOK)">
                 <img src="/assets/svgs/brands/microsoft.svg" alt="microsoft" (click)="startSocialLogin(socialTypes.MICROSOFT)">
-            </div>
+            </div> -->
         </form>
         </mat-card-content>
         <mat-divider></mat-divider>

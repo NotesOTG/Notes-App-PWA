@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EMPTY, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -31,7 +32,7 @@ export class AuthenticationService {
    */
   private _jwtHandler: JwtHandler = null;
 
-  constructor(private storage: StorageService, public http: HttpClient, private router: Router) {}
+  constructor(private storage: StorageService, public http: HttpClient, private router: Router, private snackbar: MatSnackBar) {}
 
   /**
    * Used to initialize the service to load the data
@@ -110,7 +111,8 @@ export class AuthenticationService {
     ).subscribe(() => {
       this.UserHandler.removeUser();
       this.JWTHandler.removeTokens();
-      this.router.navigateByUrl('/login');
+      //this.router.navigateByUrl('/login');
+      this.snackbar.open('You have been signed out', 'Close', {duration: 1000 * 5});
     });
   }
 
