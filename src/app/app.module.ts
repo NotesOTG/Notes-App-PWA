@@ -149,7 +149,7 @@ export function socialConfig() {
       {
         id: GoogleLoginProvider.PROVIDER_ID,
         provider: new GoogleLoginProvider(
-          '421303202733-m5l1jvf5skjvpkpf9jm0d8omsj3buf4p.apps.googleusercontent.com',
+          '530682393306-nj8sd1gf6vhdr5ls95kh4jdrg21ca3sf.apps.googleusercontent.com',
           'profile email'
         )
       }

@@ -9,6 +9,7 @@ import { Notes } from 'src/app/shared/models/notes';
 import { StateTypes } from 'src/app/shared/models/state-types';
 import { EndPointsConfiguration } from '../configs/endpoint-configuration';
 import { SiteConfigurations } from '../configs/site-configurations';
+import { UserHandler } from '../handlers/user-handler';
 import { StorageService, StorageType } from './offline/storage.service';
 import { AuthenticationService } from './online/authentication.service';
 import { ServerUserService } from './online/server-user.service';
@@ -33,7 +34,7 @@ export class NoteService {
    */
   private _currentNoteId: number = -1;
 
-  constructor(private storage: StorageService, public http: HttpClient, public userService: AuthenticationService) {}
+  constructor(private storage: StorageService, public http: HttpClient, public authService: AuthenticationService) {}
 
   public initService() {
     this.getNotesInternal();
@@ -48,34 +49,44 @@ export class NoteService {
    * @param note - The note object were adding
    */
   public async addNote(note: Notes): Promise<boolean> {
-    return SiteConfigurations.CONNECTION_ONLINE && this.userService.UserHandler.isUserExisting()
-      ? await this.saveNoteOnline(note) 
-      : await this.saveNoteOffline(note);
-  }
+    if (SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting()) {
+      let response: NoteResponse = await this.saveNoteOnline(note);
+      if (response.success) {note.publicId = response.publicId;}
+    }
 
-  private async saveNoteOffline(note: Notes): Promise<boolean> {
     let save = await this.storage.getTable(StorageType.NOTES).add(note);
     if (save !== (null || undefined)) {
       this._notes.push(note);
     }
-
     return save !== (null || undefined) ? true: false;
+    // return SiteConfigurations.CONNECTION_ONLINE && this.userHandler.isUserExisting()
+    //   ? await this.saveNoteOnline(note) 
+    //   : await this.saveNoteOffline(note);
   }
 
-  private async saveNoteOnline(note: Notes): Promise<boolean> {
-    let response = await this.http.post<NoteResponse>(
+  // private async saveNoteOffline(note: Notes): Promise<boolean> {
+  //   let save = await this.storage.getTable(StorageType.NOTES).add(note);
+  //   if (save !== (null || undefined)) {
+  //     this._notes.push(note);
+  //   }
+
+  //   return save !== (null || undefined) ? true: false;
+  // }
+
+  private async saveNoteOnline(note: Notes): Promise<NoteResponse> {
+    return await this.http.post<NoteResponse>(
       EndPointsConfiguration.ADDNOTE,
       note
     ).toPromise();
 
-    if (response.success) {
-      note.publicId = response.publicId;
-      let save = await this.storage.getTable(StorageType.NOTES).add(note);
-      if (save !== (null || undefined)) {
-        this._notes.push(note);
-      }
-    }
-    return response.success;
+    // if (response.success) {
+    //   note.publicId = response.publicId;
+    //   let save = await this.storage.getTable(StorageType.NOTES).add(note);
+    //   if (save !== (null || undefined)) {
+    //     this._notes.push(note);
+    //   }
+    // }
+    // return response.success;
   }
 
   /**
@@ -83,7 +94,7 @@ export class NoteService {
    * @param note - the note were removing
    */
   public async removeNote(noteId: number, note: Notes): Promise<boolean> {
-    return SiteConfigurations.CONNECTION_ONLINE && this.userService.UserHandler.isUserExisting() 
+    return SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting() 
       ? await this.removeNoteOnline(noteId, note) 
       : await this.removeNotOffline(noteId, note);
   }
@@ -123,7 +134,7 @@ export class NoteService {
    * @param note - the note object we're wanting to update
    */
   public async updateNote(noteId: number, note: Notes): Promise<boolean> {
-    return SiteConfigurations.CONNECTION_ONLINE && this.userService.UserHandler.isUserExisting() 
+    return SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting() 
       ? await this.updateNoteOnline(noteId, note) 
       : await this.updateNoteOffline(noteId, note);
   }

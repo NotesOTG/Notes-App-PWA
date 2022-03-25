@@ -24,12 +24,12 @@
                 </mat-form-field>
                 <button mat-raised-button color="accent" class="btn-expanded">Login</button>
                 <mat-error style="text-align: center; margin-top: 8px;" *ngIf="loginForm.hasError('loginError')">{{loginForm.getError('loginError')}}</mat-error>
-            <!-- <div class="social-buttons">
+            <div class="social-buttons">
                 <p>Or sign in with</p>
                 <img src="/assets/svgs/brands/google.svg" alt="google" (click)="startSocialLogin(socialTypes.GOOGLE)">
-                <img src="/assets/svgs/brands/facebook.svg" alt="facebook">
-                <img src="/assets/svgs/brands/microsoft.svg" alt="microsoft">
-            </div> -->
+                <!-- <img src="/assets/svgs/brands/facebook.svg" alt="facebook">
+                <img src="/assets/svgs/brands/microsoft.svg" alt="microsoft"> -->
+            </div>
         </form>
         </mat-card-content>
         <mat-divider></mat-divider>
