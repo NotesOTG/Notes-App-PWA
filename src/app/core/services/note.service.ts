@@ -55,10 +55,10 @@ export class NoteService {
     }
 
     let save = await this.storage.getTable(StorageType.NOTES).add(note);
-    if (save !== (null || undefined)) {
+    if (save != null) {
       this._notes.push(note);
     }
-    return save !== (null || undefined) ? true: false;
+    return save != null;
     // return SiteConfigurations.CONNECTION_ONLINE && this.userHandler.isUserExisting()
     //   ? await this.saveNoteOnline(note) 
     //   : await this.saveNoteOffline(note);
