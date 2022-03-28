@@ -50,7 +50,7 @@ export class NoteService {
    */
   public async addNote(note: Notes): Promise<boolean> {
     if (SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting()) {
-      let response: NoteResponse = await this.saveNoteOnline(note);
+      let response: NoteResponse = await this.saveNoteOnline(note);//if failed, upload to certain list that holds everything for trying it in future
       if (response.success) {note.publicId = response.publicId;}
     }
 
@@ -59,34 +59,13 @@ export class NoteService {
       this._notes.push(note);
     }
     return save != null;
-    // return SiteConfigurations.CONNECTION_ONLINE && this.userHandler.isUserExisting()
-    //   ? await this.saveNoteOnline(note) 
-    //   : await this.saveNoteOffline(note);
   }
-
-  // private async saveNoteOffline(note: Notes): Promise<boolean> {
-  //   let save = await this.storage.getTable(StorageType.NOTES).add(note);
-  //   if (save !== (null || undefined)) {
-  //     this._notes.push(note);
-  //   }
-
-  //   return save !== (null || undefined) ? true: false;
-  // }
 
   private async saveNoteOnline(note: Notes): Promise<NoteResponse> {
     return await this.http.post<NoteResponse>(
       EndPointsConfiguration.ADDNOTE,
       note
     ).toPromise();
-
-    // if (response.success) {
-    //   note.publicId = response.publicId;
-    //   let save = await this.storage.getTable(StorageType.NOTES).add(note);
-    //   if (save !== (null || undefined)) {
-    //     this._notes.push(note);
-    //   }
-    // }
-    // return response.success;
   }
 
   /**
@@ -94,38 +73,24 @@ export class NoteService {
    * @param note - the note were removing
    */
   public async removeNote(noteId: number, note: Notes): Promise<boolean> {
-    return SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting() 
-      ? await this.removeNoteOnline(noteId, note) 
-      : await this.removeNotOffline(noteId, note);
-  }
+    if (SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting()) {
+      let onlineDeletion = await this.removeNoteOnline(note);//if failed, upload to certain list that holds everything for trying it in future
+    }
 
-  private async removeNotOffline(noteId: number, note: Notes) {
     let selectedNote: number = this.notes.findIndex(note => note.id === noteId);
     if (selectedNote === -1) {
       return false;
     }
 
-    await this.storage.getTable(StorageType.NOTES).delete(noteId);
+    let deleteion = await this.storage.getTable(StorageType.NOTES).delete(noteId);
     this._notes.splice(selectedNote, 1);
-    return true;
+    return deleteion != null;
   }
 
-  private async removeNoteOnline(noteId: number, note: Notes) {
-    let response = await this.http.delete<BasicResponse>(
+  private async removeNoteOnline(note: Notes): Promise<BasicResponse> {
+    return await this.http.delete<BasicResponse>(
       EndPointsConfiguration.REMOVENOTE + note.publicId,
     ).toPromise();
-
-    if (response.success) {
-      let selectedNote: number = this.notes.findIndex(note => note.id === noteId);
-      if (selectedNote === -1) {
-        return false;
-      }
-  
-      await this.storage.getTable(StorageType.NOTES).delete(noteId);
-      this._notes.splice(selectedNote, 1);
-      return true;
-    }
-    return response.success;
   }
 
   /**
@@ -134,12 +99,10 @@ export class NoteService {
    * @param note - the note object we're wanting to update
    */
   public async updateNote(noteId: number, note: Notes): Promise<boolean> {
-    return SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting() 
-      ? await this.updateNoteOnline(noteId, note) 
-      : await this.updateNoteOffline(noteId, note);
-  }
+    if (SiteConfigurations.CONNECTION_ONLINE && this.authService.UserHandler.isUserExisting()) {
+      let onlineUpdate = await this.updateNoteOnline(note);//if failed, upload to certain list that holds everything for trying it in future
+    }
 
-  private async updateNoteOffline(noteId: number, note: Notes) {
     let selectedNote: number = this.notes.findIndex(note => note.id === noteId);
     if (selectedNote === -1) {
       return false;
@@ -157,38 +120,14 @@ export class NoteService {
     if (save === 1) {
       this.notes.splice(selectedNote, 1, note);
     }
-
-    return  save === 1 ? true: false;
+    return save === 1;
   }
 
-  private async updateNoteOnline(noteId: number, note: Notes) {
-    let response = await this.http.put<BasicResponse>(
+  private async updateNoteOnline(note: Notes): Promise<BasicResponse> {
+    return await this.http.put<BasicResponse>(
       EndPointsConfiguration.UPDATENOTE,
       note
     ).toPromise();
-
-    if (response.success) {
-      let selectedNote: number = this.notes.findIndex(note => note.id === noteId);
-      if (selectedNote === -1) {
-        return false;
-      }
-
-      let save = await this.storage.getTable(StorageType.NOTES).update(noteId, {
-        title: note.title,
-        body: note.body,
-        checklist: note.checklist,
-        category: note.category,
-        modifiedDate: note.modifiedDate,
-        customCategory: note.customCategory,
-      });
-
-      if (save === 1) {
-        this.notes.splice(selectedNote, 1, note);
-      }
-
-      return  save === 1 ? true: false;
-    }
-    return false;
   }
 
   /**
